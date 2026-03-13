@@ -213,7 +213,7 @@
         rgba(30, 20, 10, 0.45) 0%,
         rgba(20, 12, 5, 0.55) 100%
         ),
-        url('images/church-hero.jpg') center center / cover no-repeat;
+        var(--hero-image, url('images/church-hero.jpg')) center center / cover no-repeat;
     filter: blur(2px);
     transform: scale(1.05);
     }
@@ -1085,6 +1085,48 @@
         document.querySelector('.nav-links').classList.remove('open');
       });
     });
+
+    async function loadHeroImage() {
+    let images;
+
+    try {
+        const res = await fetch('hero-images.json');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        images = await res.json();
+    } catch (err) {
+        console.error('Could not load hero-images.json:', err);
+        return; // silently keep whatever is already in the CSS
+    }
+
+    const month = new Date().getMonth() + 1; // 1–12
+
+    const match = images.find(img => {
+        // Normal range e.g. March–May (3–5)
+        if (img.start_month <= img.end_month) {
+        return month >= img.start_month && month <= img.end_month;
+        }
+        // Wrapping range e.g. December–February (12–2)
+        return month >= img.start_month || month <= img.end_month;
+    });
+
+    if (!match) return; // no match, leave default
+
+    // Update the background image
+    const heroBefore = document.getElementById('hero');
+    heroBefore.style.setProperty('--hero-image', `url('${match.file}')`);
+
+    // Update the photo credit
+    const credit = document.querySelector('.hero-photo-credit');
+    if (credit) {
+        credit.innerHTML = `
+        "<a href="${match.title_url}" target="_blank" rel="noopener license">${match.title}</a>"
+        by <a href="${match.author_url}" target="_blank" rel="noopener">${match.author}</a>,
+        <a href="${match.license_url}" target="_blank" rel="noopener noreferrer license">${match.license}</a>
+        `;
+    }
+    }
+
+    loadHeroImage();
 
     // ── Kick off events load ──────────────────────────────────────
     loadEvents();
