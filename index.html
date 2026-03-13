@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brampton Preservation Trust</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Variables ───────────────────────────────────────────── */
+    :root {
+      --stone:       #e8e2d9;
+      --stone-dark:  #c9bfaf;
+      --earth:       #5c4a32;
+      --earth-light: #8c7355;
+      --moss:        #4a5c3a;
+      --cream:       #f7f3ed;
+      --ink:         #2a1f14;
+      --ink-soft:    #4a3c2c;
+      --gold:        #b8922a;
+      --gold-light:  #d4a93c;
+      --rule:        1px solid rgba(92,74,50,0.18);
+    }
+
+    /* ── Reset & Base ────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.75;
+      font-weight: 300;
+    }
+
+    /* Stone-grain texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.5;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: var(--earth); text-decoration: none; }
+    a:hover { color: var(--gold); }
+
+    /* ── Layout helpers ──────────────────────────────────────── */
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .wide-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── Section spacing ─────────────────────────────────────── */
+    section { padding: 5rem 0; }
+    section + section { border-top: var(--rule); }
+
+    /* ── Ornamental rule ─────────────────────────────────────── */
+    .ornament {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 1.5rem 0 2.5rem;
+    }
+    .ornament::before, .ornament::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--stone-dark);
+    }
+    .ornament span {
+      color: var(--gold);
+      font-size: 1.4rem;
+      line-height: 1;
+    }
+
+    /* ── Typography ──────────────────────────────────────────── */
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    h2 {
+      font-size: clamp(1.7rem, 4vw, 2.4rem);
+      color: var(--earth);
+      margin-bottom: 0.4rem;
+    }
+    h3 {
+      font-size: 1.25rem;
+      color: var(--earth);
+    }
+    .section-label {
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-size: 0.7rem;
+      color: var(--earth-light);
+      font-family: 'Crimson Pro', serif;
+      font-weight: 600;
+    }
+    p { margin-bottom: 1.1em; }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── NAV ─────────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(247,243,237,0.94);
+      backdrop-filter: blur(8px);
+      border-bottom: var(--rule);
+    }
+    nav .inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .nav-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--earth);
+      letter-spacing: 0.02em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--ink-soft);
+      font-weight: 400;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* Mobile nav toggle */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ink);
+      transition: all 0.3s;
+    }
+
+    @media (max-width: 660px) {
+      .nav-toggle { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0; right: 0;
+        background: var(--cream);
+        border-bottom: var(--rule);
+        flex-direction: column;
+        padding: 1.5rem 2rem;
+        gap: 1.2rem;
+      }
+      .nav-links.open { display: flex; }
+    }
+
+    /* ── HERO ─────────────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      padding: 6rem 2rem;
+      border-top: none;
+    }
+
+    /* Layered background: gradient + subtle pattern */
+    #hero::before {
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(30, 20, 10, 0.45) 0%,
+      rgba(20, 12, 5, 0.55) 100%
+    ),
+    url('images/church-hero.jpg') center center / cover no-repeat;
+  filter: blur(2px);
+  transform: scale(1.05);
+}
+
+    /* Decorative arch motif */
+    #hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 300px;
+      border-radius: 300px 300px 0 0;
+      border: 1px solid rgba(92,74,50,0.1);
+      border-bottom: none;
+      z-index: 0;
+    }
+
+    #hero::after {
+  border-color: rgba(255,255,255,0.12);
+}
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+    }
+    .hero-badge {
+      display: inline-block;
+      border: 1px solid var(--stone-dark);
+      color: var(--earth-light);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      padding: 0.4em 1.2em;
+      margin-bottom: 2rem;
+      font-weight: 600;
+    }
+    .hero-title     { color: #f7f3ed; }   /* was var(--earth) */
+    .hero-title em  { color: #fff; }
+    .hero-sub       { color: rgba(255,255,255,0.8); }
+    .hero-badge     { color: rgba(255,255,255,0.75); border-color: rgba(255,255,255,0.35); }
+    .scroll-hint    { color: rgba(255,255,255,0.6); }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 7vw, 4.2rem);
+      font-weight: 800;
+      color: var(--earth);
+      line-height: 1.08;
+      margin-bottom: 0.5rem;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--ink);
+    }
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--ink-soft);
+      margin: 1.5rem 0 2.5rem;
+      font-weight: 300;
+      font-style: italic;
+    }
+
+    /* Gold cross icon */
+    .cross-icon {
+      display: block;
+      margin: 0 auto 2rem;
+      width: 36px;
+      height: 36px;
+      position: relative;
+    }
+    .cross-icon::before, .cross-icon::after {
+      content: '';
+      position: absolute;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+    .cross-icon::before { width: 4px; height: 100%; left: 50%; transform: translateX(-50%); }
+    .cross-icon::after  { width: 100%; height: 4px; top: 30%; }
+
+    .hero-cta {
+      display: inline-block;
+      background: var(--earth);
+      color: var(--cream);
+      padding: 0.75em 2.2em;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-weight: 400;
+      transition: background 0.25s, color 0.25s;
+      margin-right: 1rem;
+    }
+    .hero-cta:hover { background: var(--gold); color: var(--ink); }
+    .hero-cta.outline {
+      background: transparent;
+      color: var(--earth);
+      border: 1px solid var(--stone-dark);
+      margin-right: 0;
+    }
+    .hero-cta.outline:hover { border-color: var(--gold); color: var(--gold); background: transparent; }
+
+    /* Scroll indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--earth-light);
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .scroll-hint .arrow {
+      width: 1px;
+      height: 36px;
+      background: linear-gradient(to bottom, var(--earth-light), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.1); }
+    }
+
+    /* ── ABOUT ───────────────────────────────────────────────── */
+    #about { background: var(--cream); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .about-image-frame {
+      position: relative;
+    }
+    .about-image-frame::before {
+      content: '';
+      position: absolute;
+      top: -12px; left: -12px;
+      right: 12px; bottom: 12px;
+      border: 1px solid var(--stone-dark);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .about-image-frame .placeholder-img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: linear-gradient(135deg, #d9d1c4 0%, #c4b89e 50%, #b8a882 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      color: var(--earth-light);
+    }
+    .placeholder-img .church-svg { opacity: 0.5; }
+    .placeholder-img p { font-size: 0.8rem; text-align: center; max-width: 80%; line-height: 1.4; font-style: italic; }
+
+    @media (max-width: 700px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+
+    /* ── MINUTES ─────────────────────────────────────────────── */
+    #minutes { background: #f0ebe2; }
+
+    .minutes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1px;
+      background: var(--stone-dark);
+      border: 1px solid var(--stone-dark);
+      margin-top: 2rem;
+    }
+    .minute-card {
+      background: var(--cream);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      transition: background 0.2s;
+    }
+    .minute-card:hover { background: #fff; }
+    .minute-card .date {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--earth-light);
+      font-weight: 600;
+    }
+    .minute-card h4 { font-size: 1rem; }
+    .minute-card a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4em;
+      font-size: 0.8rem;
+      color: var(--moss);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+    .minute-card a:hover { color: var(--gold); }
+    .minute-card a::after { content: '↓'; }
+
+    .minutes-note {
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--earth-light);
+      font-style: italic;
+    }
+
+    /* ── EVENTS ──────────────────────────────────────────────── */
+    #events { background: var(--cream); }
+
+    .events-list { margin-top: 2rem; }
+    .event-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 1.5rem 2rem;
+      padding: 2rem 0;
+      border-bottom: var(--rule);
+      align-items: start;
+    }
+    .event-item:first-child { border-top: var(--rule); }
+    .event-date-block {
+      text-align: center;
+      background: var(--earth);
+      color: var(--cream);
+      padding: 0.6rem 0.5rem;
+      line-height: 1;
+    }
+    .event-date-block .day {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 800;
+    }
+    .event-date-block .month {
+      display: block;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-top: 0.2rem;
+      opacity: 0.85;
+    }
+    .event-body h4 { font-size: 1.15rem; margin-bottom: 0.3rem; }
+    .event-meta {
+      font-size: 0.8rem;
+      color: var(--earth-light);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.6rem;
+      font-weight: 600;
+    }
+    .event-body p { font-size: 0.95rem; color: var(--ink-soft); }
+
+    /* ── TRUSTEES ────────────────────────────────────────────── */
+    #trustees { background: #f0ebe2; }
+
+    .trustees-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .trustee-card {
+      border: 1px solid var(--stone-dark);
+      padding: 1.4rem 1.2rem;
+      background: var(--cream);
+    }
+    .trustee-card h4 { font-size: 1rem; margin-bottom: 0.2rem; }
+    .trustee-card .role {
+      font-size: 0.75rem;
+      color: var(--earth-light);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 600;
+    }
+
+    .secretary-box {
+      margin-top: 3rem;
+      border-top: var(--rule);
+      padding-top: 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: center;
+    }
+    .secretary-box h3 { margin-bottom: 0.4rem; }
+    .secretary-box p { font-size: 0.95rem; color: var(--ink-soft); margin: 0; }
+    .contact-btn {
+      display: inline-block;
+      border: 1px solid var(--earth);
+      color: var(--earth);
+      padding: 0.65em 1.8em;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .contact-btn:hover { background: var(--earth); color: var(--cream); }
+
+    @media (max-width: 600px) {
+      .secretary-box { grid-template-columns: 1fr; }
+    }
+
+    /* ── HISTORY ─────────────────────────────────────────────── */
+    #history { background: var(--earth); color: var(--stone); }
+    #history h2 { color: var(--stone); }
+    #history .section-label { color: var(--stone-dark); opacity: 0.7; }
+    #history .ornament::before, #history .ornament::after { background: rgba(201,191,175,0.3); }
+    #history .ornament span { color: var(--gold-light); }
+    #history p { color: rgba(232,226,217,0.85); }
+    #history a { color: var(--gold-light); }
+    #history a:hover { color: #fff; }
+
+    .history-timeline {
+      margin-top: 2.5rem;
+      position: relative;
+      padding-left: 2rem;
+    }
+    .history-timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.5rem; bottom: 0.5rem;
+      width: 1px;
+      background: rgba(201,191,175,0.25);
+    }
+    .timeline-item {
+      position: relative;
+      padding: 0 0 2.5rem 2rem;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -4px;
+      top: 0.5rem;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+    .timeline-item .year {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--gold-light);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .timeline-item h4 { color: var(--stone); margin-bottom: 0.3rem; }
+    .timeline-item p { font-size: 0.95rem; margin: 0; }
+
+    /* ── SUPPORT / DONATE ────────────────────────────────────── */
+    #support { background: var(--cream); }
+
+    .support-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .support-card {
+      border: 1px solid var(--stone-dark);
+      padding: 2rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .support-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 3px;
+      background: var(--gold);
+    }
+    .support-card .icon {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+    .support-card h4 { margin-bottom: 0.5rem; }
+    .support-card p { font-size: 0.9rem; color: var(--ink-soft); }
+
+    /* ── FOOTER ──────────────────────────────────────────────── */
+    footer {
+      background: var(--ink);
+      color: var(--stone-dark);
+      padding: 4rem 2rem 2.5rem;
+    }
+    .footer-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(201,191,175,0.12);
+    }
+    .footer-col h5 {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      color: var(--stone);
+      margin-bottom: 1rem;
+    }
+    .footer-col p, .footer-col li {
+      font-size: 0.85rem;
+      line-height: 1.8;
+      color: rgba(201,191,175,0.7);
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col a { color: rgba(201,191,175,0.7); transition: color 0.2s; }
+    .footer-col a:hover { color: var(--gold-light); }
+    .footer-bottom {
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: rgba(201,191,175,0.4);
+    }
+    .footer-bottom .charity-no { font-size: 0.72rem; }
+
+    @media (max-width: 620px) {
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+
+    /* ── Fade-in on scroll ───────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ─────────────────────────────────────────────────── -->
+  <nav>
+    <div class="inner">
+      <span class="nav-brand">Brampton Preservation Trust</span>
+      <button class="nav-toggle" aria-label="Toggle menu" onclick="this.nextElementSibling.classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#events">Events</a></li>
+        <li><a href="#minutes">Minutes</a></li>
+        <li><a href="#trustees">Trustees</a></li>
+        <li><a href="#history">History</a></li>
+        <li><a href="#support">Support Us</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── HERO ────────────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-content">
+
+      <h1 class="hero-title">Brampton Preservation Trust</h1>
+      <p class="hero-sub">Caring for a place of worship and history<br>since the early medieval period</p>
+      <a href="#about" class="hero-cta">Learn More</a>
+      <a href="#support" class="hero-cta outline">Support Us</a>
+    </div>
+    <div class="scroll-hint" aria-hidden="true">
+      <span>Scroll</span>
+      <span class="arrow"></span>
+    </div>
+  </section>
+
+  <!-- ── ABOUT ───────────────────────────────────────────────── -->
+  <section id="about">
+    <div class="wide-wrap">
+      <div class="about-grid">
+        <div class="about-image-frame reveal">
+          <!-- Replace the div below with an <img src="..." alt="Brampton Old Church"> when you have a photo -->
+          <div class="placeholder-img">
+            <svg class="church-svg" width="80" height="90" viewBox="0 0 80 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="15" y="40" width="50" height="45" stroke="currentColor" stroke-width="1.5"/>
+              <polygon points="40,10 65,40 15,40" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <rect x="35" y="0" width="10" height="14" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <line x1="40" y1="0" x2="40" y2="14" stroke="currentColor" stroke-width="1"/>
+              <line x1="35" y1="7" x2="45" y2="7" stroke="currentColor" stroke-width="1"/>
+              <rect x="31" y="60" width="18" height="25" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="22" y="52" width="12" height="14" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+            <p>Replace with a photograph of Brampton Old Church</p>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <span class="section-label">About Us</span>
+          <h2>Brampton Preservation Trust</h2>
+          <div class="ornament"><span>✦</span></div>
+
+          <p>Brampton Preservation Trust is a registered charity dedicated to the conservation, maintenance, and celebration of <strong>Brampton Old Church</strong> — a historic place of worship situated approximately one mile from the market town of Brampton in Cumbria.</p>
+
+          <p>The church, one of the oldest ecclesiastical sites in the region, stands as a quiet testament to centuries of local faith, community, and craftsmanship. Our trust works to ensure that this remarkable building is preserved in good repair for future generations to visit, appreciate, and cherish.</p>
+
+          <p>The Trust undertakes regular structural maintenance, commissions specialist conservation work, maintains the churchyard, and opens the church to visitors and worshippers throughout the year. We also work to promote awareness of the church's architectural and historical significance within Cumbria and beyond.</p>
+
+          <p>All of our work depends entirely on the generosity of supporters, donors, and volunteers from the local community and further afield.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── EVENTS ──────────────────────────────────────────────── -->
+  <section id="events">
+    <div class="wrap">
+      <span class="section-label">What's On</span>
+      <h2>Upcoming Events</h2>
+      <div class="ornament"><span>✦</span></div>
+
+      <!-- Events are loaded from events.json -->
+      <div class="events-list" id="events-list">
+        <p class="events-loading" style="color:var(--earth-light);font-style:italic;">Loading events…</p>
+      </div><!-- /events-list -->
+
+      <p style="margin-top:2rem;font-size:0.9rem;color:var(--earth-light);font-style:italic;">
+        For the most up-to-date programme, or to enquire about holding an event at the church, please <a href="#trustees">contact the Secretary</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── MINUTES ─────────────────────────────────────────────── -->
+  <section id="minutes">
+    <div class="wrap">
+      <span class="section-label">Trustees' Meetings</span>
+      <h2>Meeting Minutes</h2>
+      <div class="ornament"><span>✦</span></div>
+
+      <p>Minutes of Trustees' meetings are published here as PDFs following approval at the subsequent meeting. They provide a transparent record of decisions made in the running and preservation of Brampton Old Church.</p>
+
+      <div class="minutes-grid reveal">
+
+        <!-- ── Duplicate and update these cards as PDFs are added ── -->
+
+        <div class="minute-card">
+          <span class="date">January 2025</span>
+          <h4>Trustees' Meeting</h4>
+          <a href="minutes/2025-01-trustees-meeting.pdf">Download PDF</a>
+        </div>
+
+        <div class="minute-card">
+          <span class="date">April 2025</span>
+          <h4>Trustees' Meeting</h4>
+          <a href="minutes/2025-04-trustees-meeting.pdf">Download PDF</a>
+        </div>
+
+        <div class="minute-card">
+          <span class="date">July 2025</span>
+          <h4>Trustees' Meeting</h4>
+          <a href="minutes/2025-07-trustees-meeting.pdf">Download PDF</a>
+        </div>
+
+        <div class="minute-card">
+          <span class="date">October 2025</span>
+          <h4>Annual General Meeting</h4>
+          <a href="minutes/2025-10-agm.pdf">Download PDF</a>
+        </div>
+
+      </div>
+
+      <p class="minutes-note">
+        PDFs will appear here once uploaded to the <code>minutes/</code> folder of the repository. To add minutes, upload the PDF to that folder and add a new card above following the same pattern.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── TRUSTEES ────────────────────────────────────────────── -->
+  <section id="trustees">
+    <div class="wrap">
+      <span class="section-label">Governance</span>
+      <h2>Trustees</h2>
+      <div class="ornament"><span>✦</span></div>
+
+      <p>Brampton Preservation Trust is governed by a board of trustees who give their time voluntarily in service of the church and the local community.</p>
+
+      <div class="trustees-grid reveal">
+
+        <!-- ── Update names, roles and add/remove cards as needed ── -->
+
+        <div class="trustee-card">
+          <h4>Name Surname</h4>
+          <span class="role">Chair</span>
+        </div>
+        <div class="trustee-card">
+          <h4>Name Surname</h4>
+          <span class="role">Secretary</span>
+        </div>
+        <div class="trustee-card">
+          <h4>Name Surname</h4>
+          <span class="role">Treasurer</span>
+        </div>
+        <div class="trustee-card">
+          <h4>Name Surname</h4>
+          <span class="role">Trustee</span>
+        </div>
+        <div class="trustee-card">
+          <h4>Name Surname</h4>
+          <span class="role">Trustee</span>
+        </div>
+        <div class="trustee-card">
+          <h4>Name Surname</h4>
+          <span class="role">Trustee</span>
+        </div>
+
+      </div>
+
+      <div class="secretary-box reveal">
+        <div>
+          <h3>Contact the Secretary</h3>
+          <p>For enquiries about the Trust, the church, events, or how to support our work, please get in touch with our Secretary.</p>
+          <p style="margin-top:0.6rem;">
+            <!-- Update the email address below -->
+            <strong>Email:</strong> <a href="/cdn-cgi/l/email-protection#bbc8ded8c9decfdac9c2fbd9c9dad6cbcfd4d5cbc9dec8dec9cddacfd2d4d5cfc9cec8cf95d4c9dc95ced0"><span class="__cf_email__" data-cfemail="4c3f292f3e29382d3e350c2e3e2d213c3823223c3e293f293e3a2d38252322383e393f3862233e2b623927">[email&#160;protected]</span></a>
+          </p>
+        </div>
+        <a href="/cdn-cgi/l/email-protection#f586909687908194878cb59787949885819a9b8587908690878394819c9a9b8187808681db9a8792db809e" class="contact-btn">Email Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── HISTORY ─────────────────────────────────────────────── -->
+  <section id="history">
+    <div class="wrap">
+      <span class="section-label">The Building</span>
+      <h2>A Brief History of the Church</h2>
+      <div class="ornament"><span>✦</span></div>
+
+      <p>Brampton Old Church is among the most historically significant ecclesiastical sites in Cumbria, its origins stretching back over a thousand years. The building reflects centuries of architectural development, adaptation, and community stewardship.</p>
+
+      <div class="history-timeline reveal">
+
+        <!-- ── Update or expand these timeline items with accurate dates ── -->
+
+        <div class="timeline-item">
+          <div class="year">c. 11th C.</div>
+          <h4>Early Origins</h4>
+          <p>A place of Christian worship is believed to have been established on this site during the early medieval period, serving the scattered communities of the Brampton area.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="year">c. 13th C.</div>
+          <h4>Norman & Early English Development</h4>
+          <p>The church is developed and extended. Surviving architectural elements from this period include stonework visible in the nave walls.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="year">c. 18th C.</div>
+          <h4>Restoration & Rededication</h4>
+          <p>The church undergoes significant restoration work, reflecting the renewed interest in rural ecclesiastical buildings across Cumberland.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="year">1984</div>
+          <h4>Brampton Preservation Trust Founded</h4>
+          <p>The Trust is established by local community members to ensure the long-term conservation and maintenance of the church building and its grounds.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="year">Today</div>
+          <h4>Continuing Care</h4>
+          <p>The Trust continues its work of maintenance, repair and advocacy, keeping the church open and accessible to all who wish to visit.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SUPPORT ─────────────────────────────────────────────── -->
+  <section id="support">
+    <div class="wrap">
+      <span class="section-label">Get Involved</span>
+      <h2>Support Our Work</h2>
+      <div class="ornament"><span>✦</span></div>
+
+      <p>Brampton Old Church is maintained entirely through voluntary effort and the generosity of supporters. There are several ways you can help us continue this vital work.</p>
+
+      <div class="support-grid reveal">
+
+        <div class="support-card">
+          <div class="icon">🕯️</div>
+          <h4>Donate</h4>
+          <p>A financial contribution of any size makes a direct and lasting difference to the conservation of the church. Donations can be made by contacting the Treasurer.</p>
+        </div>
+
+        <div class="support-card">
+          <div class="icon">🌿</div>
+          <h4>Volunteer</h4>
+          <p>We welcome volunteers to help with churchyard maintenance, open days, and special events throughout the year. No specialist skills required — just enthusiasm.</p>
+        </div>
+
+        <div class="support-card">
+          <div class="icon">📋</div>
+          <h4>Become a Member</h4>
+          <p>Annual membership supports the Trust's running costs and gives you a say in our work at the AGM. Please contact the Secretary for details.</p>
+        </div>
+
+        <div class="support-card">
+          <div class="icon">📣</div>
+          <h4>Spread the Word</h4>
+          <p>Share news of the church and Trust with friends, family, and community groups. Awareness is among the most valuable resources we have.</p>
+        </div>
+
+      </div>
+
+      <p style="margin-top:2.5rem;font-size:0.95rem;color:var(--ink-soft);">
+        To discuss any of the above, please <a href="/cdn-cgi/l/email-protection#92e1f7f1e0f7e6f3e0ebd2f0e0f3ffe2e6fdfce2e0f7e1f7e0e4f3e6fbfdfce6e0e7e1e6bcfde0f5bce7f9"><strong>email the Secretary</strong></a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ──────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-col">
+          <h5>Brampton Preservation Trust</h5>
+          <p>Preserving Brampton Old Church for present and future generations.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Quick Links</h5>
+          <ul>
+            <li><a href="#about">About the Trust</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#minutes">Meeting Minutes</a></li>
+            <li><a href="#trustees">Trustees & Contact</a></li>
+            <li><a href="#history">History</a></li>
+            <li><a href="#support">Support Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Find the Church</h5>
+          <p>Brampton Old Church<br>Brampton, Cumbria<br>CA8</p>
+          <p style="margin-top:0.8rem;">Approximately one mile from<br>Brampton town centre.</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="yr"></span> Brampton Preservation Trust. All rights reserved.</span>
+        <span class="charity-no">Registered Charity No. XXXXXXX</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Events loader ─────────────────────────────────────────────
+    const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const MONTHS_FULL = ['January','February','March','April','May','June',
+                         'July','August','September','October','November','December'];
+
+    async function loadEvents() {
+      const list = document.getElementById('events-list');
+      let events;
+
+      try {
+        const res = await fetch('events.json');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        events = await res.json();
+      } catch (err) {
+        list.innerHTML = `<p style="color:var(--earth-light);font-style:italic;">
+          Events could not be loaded. Please check that <code>events.json</code> exists in the repository root.
+        </p>`;
+        console.error('Could not load events.json:', err);
+        return;
+      }
+
+      // Sort chronologically
+      events.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+      // Filter to only today or future events (show all if you remove this line)
+      const today = new Date(); today.setHours(0,0,0,0);
+      const upcoming = events.filter(e => new Date(e.date) >= today);
+
+      if (upcoming.length === 0) {
+        list.innerHTML = `<p style="color:var(--earth-light);font-style:italic;">
+          No upcoming events at present. Please check back soon, or <a href="#trustees">contact the Secretary</a> for more information.
+        </p>`;
+        return;
+      }
+
+      list.innerHTML = upcoming.map(event => {
+        const d = new Date(event.date);
+        const day   = d.getDate();
+        const month = MONTHS[d.getMonth()];
+        // time: use event.time if provided, otherwise "All Day"
+        const timeStr = event.time || 'All Day';
+        // location: use event.location if provided
+        const locStr  = event.location || 'Brampton Old Church';
+        const meta    = `${timeStr} &nbsp;·&nbsp; ${locStr}`;
+        // optional description
+        const desc    = event.description
+          ? `<p>${event.description}</p>` : '';
+
+        return `
+        <div class="event-item reveal">
+          <div class="event-date-block">
+            <span class="day">${day}</span>
+            <span class="month">${month}</span>
+          </div>
+          <div class="event-body">
+            <div class="event-meta">${meta}</div>
+            <h4>${event.title}</h4>
+            ${desc}
+          </div>
+        </div>`;
+      }).join('');
+
+      // Re-run scroll-reveal on the new elements
+      list.querySelectorAll('.reveal').forEach(el => scrollObserver.observe(el));
+    }
+
+    // ── Scroll-reveal ─────────────────────────────────────────────
+    const scrollObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          scrollObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => scrollObserver.observe(el));
+
+    // ── Current year in footer ────────────────────────────────────
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // ── Close mobile nav on link click ────────────────────────────
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => {
+        document.querySelector('.nav-links').classList.remove('open');
+      });
+    });
+
+    // ── Kick off events load ──────────────────────────────────────
+    loadEvents();
+  </script>

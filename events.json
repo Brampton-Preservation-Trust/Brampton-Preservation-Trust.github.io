@@ -1,0 +1,37 @@
+[
+    {
+      "date": "2026-04-05",
+      "time": "6:00 am",
+      "location": "Brampton Old Church",
+      "title": "Easter Morning",
+      "description": "A traditional Easter dawn service open to all, celebrating the season in the peaceful setting of Brampton Old Church. All are welcome."
+    },
+    {
+      "date": "2026-05-13",
+      "time": "7:00 pm",
+      "location": "David Moorat's House",
+      "title": "Council of Management Meeting",
+      "description": null
+    },
+    {
+        "date": "2026-06-20",
+        "time": null,
+        "location": "Brampton Old Church",
+        "title": "Church Open Day",
+        "description": "The church will be open in the afternoon for a talk by Maks Loth-Hill and a tour of the graveyard focusing on some of the mediaeval graves and local history."
+    },
+    {
+      "date": "2026-07-08",
+      "time": null,
+      "location": "Brampton Old Church",
+      "title": "Annual General Meeting (AGM)",
+      "description": null
+    },
+    {
+      "date": "2026-09-16",
+      "time": "6:00 pm",
+      "location": "Brampton Old Church",
+      "title": "St. Ninian's Day Open Day",
+      "description": "The church will be open this evening for a talk by Maks Loth-Hill and a tour of the graveyard focusing on some of the mediaeval graves and local history."
+    }
+  ]
