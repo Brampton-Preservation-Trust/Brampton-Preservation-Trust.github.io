@@ -204,35 +204,21 @@
 
     /* Layered background: gradient + subtle pattern */
     #hero::before {
-  background:
-    linear-gradient(
-      to bottom,
-      rgba(30, 20, 10, 0.45) 0%,
-      rgba(20, 12, 5, 0.55) 100%
-    ),
-    url('images/church-hero.jpg') center center / cover no-repeat;
-  filter: blur(2px);
-  transform: scale(1.05);
-}
-
-    /* Decorative arch motif */
-    #hero::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 600px;
-      height: 300px;
-      border-radius: 300px 300px 0 0;
-      border: 1px solid rgba(92,74,50,0.1);
-      border-bottom: none;
-      z-index: 0;
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+        to bottom,
+        rgba(30, 20, 10, 0.45) 0%,
+        rgba(20, 12, 5, 0.55) 100%
+        ),
+        url('images/church-hero.jpg') center center / cover no-repeat;
+    filter: blur(2px);
+    transform: scale(1.05);
     }
 
-    #hero::after {
-  border-color: rgba(255,255,255,0.12);
-}
+
 
     .hero-content {
       position: relative;
@@ -242,7 +228,8 @@
     .hero-badge {
       display: inline-block;
       border: 1px solid var(--stone-dark);
-      color: var(--earth-light);
+      color: rgba(255,255,255,0.75);
+      border-color: rgba(255,255,255,0.35); 
       font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 0.22em;
@@ -250,9 +237,6 @@
       margin-bottom: 2rem;
       font-weight: 600;
     }
-    .hero-title     { color: #f7f3ed; }   /* was var(--earth) */
-    .hero-title em  { color: #fff; }
-    .hero-sub       { color: rgba(255,255,255,0.8); }
     .hero-badge     { color: rgba(255,255,255,0.75); border-color: rgba(255,255,255,0.35); }
     .scroll-hint    { color: rgba(255,255,255,0.6); }
 
@@ -260,17 +244,17 @@
       font-family: 'Playfair Display', serif;
       font-size: clamp(2.4rem, 7vw, 4.2rem);
       font-weight: 800;
-      color: var(--earth);
+      color: #f9f8f7;
       line-height: 1.08;
       margin-bottom: 0.5rem;
     }
     .hero-title em {
       font-style: italic;
-      color: var(--ink);
+      color: #fff; 
     }
     .hero-sub {
       font-size: 1.15rem;
-      color: var(--ink-soft);
+      color: rgba(255,255,255,0.8);
       margin: 1.5rem 0 2.5rem;
       font-weight: 300;
       font-style: italic;
@@ -308,7 +292,7 @@
     .hero-cta:hover { background: var(--gold); color: var(--ink); }
     .hero-cta.outline {
       background: transparent;
-      color: var(--earth);
+      color: var(--cream);
       border: 1px solid var(--stone-dark);
       margin-right: 0;
     }
@@ -325,7 +309,7 @@
       flex-direction: column;
       align-items: center;
       gap: 0.4rem;
-      color: var(--earth-light);
+      color: rgba(255,255,255,0.6); 
       font-size: 0.65rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
@@ -660,6 +644,52 @@
       transform: none;
     }
 
+    .hero-photo-credit {
+  position: absolute;
+  bottom: 0.6rem;
+  right: 0.8rem;
+  font-size: 0.65rem;
+  color: rgba(255,255,255,0.55);
+  background: rgba(0,0,0,0.3);
+  padding: 0.2em 0.6em;
+  border-radius: 2px;
+  letter-spacing: 0.02em;
+  z-index: 2;
+}
+
+.hero-photo-credit a {
+  color: rgba(255,255,255,0.65);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.hero-photo-credit a:hover {
+  color: rgba(255,255,255,0.95);
+}
+
+.photo-credit {
+  position: absolute;
+  bottom: 0.6rem;
+  right: 0.6rem;
+  font-size: 0.62rem;
+  color: rgba(255,255,255,0.55);
+  background: rgba(0,0,0,0.35);
+  padding: 0.2em 0.6em;
+  border-radius: 2px;
+  letter-spacing: 0.02em;
+  z-index: 2;
+}
+
+.photo-credit a {
+  color: rgba(255,255,255,0.65);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.photo-credit a:hover {
+  color: rgba(255,255,255,0.95);
+}
+
   </style>
 </head>
 <body>
@@ -691,6 +721,11 @@
       <a href="#about" class="hero-cta">Learn More</a>
       <a href="#support" class="hero-cta outline">Support Us</a>
     </div>
+
+    <div class="hero-photo-credit">
+        “<a href="https://www.flickr.com/photos/alandlesley/49836776163" title="2020_03_19 004 Brampton Old Church">2020_03_19 004 Brampton Old Church</a>” by <a href="https://www.flickr.com/photos/alandlesley/">Alan Sawyer</a>, <a href="https://creativecommons.org/licenses/by-nc-nd/2.0/deed.en" rel="license noopener noreferrer">CC BY-NC-ND 2.0</a>
+      </div>
+
     <div class="scroll-hint" aria-hidden="true">
       <span>Scroll</span>
       <span class="arrow"></span>
@@ -702,18 +737,9 @@
     <div class="wide-wrap">
       <div class="about-grid">
         <div class="about-image-frame reveal">
-          <!-- Replace the div below with an <img src="..." alt="Brampton Old Church"> when you have a photo -->
-          <div class="placeholder-img">
-            <svg class="church-svg" width="80" height="90" viewBox="0 0 80 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="15" y="40" width="50" height="45" stroke="currentColor" stroke-width="1.5"/>
-              <polygon points="40,10 65,40 15,40" stroke="currentColor" stroke-width="1.5" fill="none"/>
-              <rect x="35" y="0" width="10" height="14" stroke="currentColor" stroke-width="1.5" fill="none"/>
-              <line x1="40" y1="0" x2="40" y2="14" stroke="currentColor" stroke-width="1"/>
-              <line x1="35" y1="7" x2="45" y2="7" stroke="currentColor" stroke-width="1"/>
-              <rect x="31" y="60" width="18" height="25" stroke="currentColor" stroke-width="1.5"/>
-              <rect x="22" y="52" width="12" height="14" stroke="currentColor" stroke-width="1.5"/>
-            </svg>
-            <p>Replace with a photograph of Brampton Old Church</p>
+          <img src="images/church-interior.jpg" alt="Brampton Old Church">
+          <div class="photo-credit">
+            “<a href="https://www.flickr.com/photos/jcameronuk/26205017995" title="Brampton Old Church, Cumbria">Brampton Old Church, Cumbria</a>” by <a href="https://www.flickr.com/photos/jcameronuk/">James Alexander Cameron</a>, <a href="https://creativecommons.org/licenses/by-nc-sa/2.0/deed.en" rel="license noopener noreferrer">CC BY-NC-SA 2.0</a>
           </div>
         </div>
 
@@ -726,7 +752,7 @@
 
           <p>The church, one of the oldest ecclesiastical sites in the region, stands as a quiet testament to centuries of local faith, community, and craftsmanship. Our trust works to ensure that this remarkable building is preserved in good repair for future generations to visit, appreciate, and cherish.</p>
 
-          <p>The Trust undertakes regular structural maintenance, commissions specialist conservation work, maintains the churchyard, and opens the church to visitors and worshippers throughout the year. We also work to promote awareness of the church's architectural and historical significance within Cumbria and beyond.</p>
+          <p>The Trust undertakes regular maintenance, commissions specialist conservation work, and opens the church to visitors and worshippers throughout the year. We also work to promote awareness of the church's architectural and historical significance within Cumbria and beyond.</p>
 
           <p>All of our work depends entirely on the generosity of supporters, donors, and volunteers from the local community and further afield.</p>
         </div>
@@ -755,45 +781,34 @@
   <!-- ── MINUTES ─────────────────────────────────────────────── -->
   <section id="minutes">
     <div class="wrap">
-      <span class="section-label">Trustees' Meetings</span>
+      <span class="section-label">Council of Management Meetings</span>
       <h2>Meeting Minutes</h2>
       <div class="ornament"><span>✦</span></div>
 
-      <p>Minutes of Trustees' meetings are published here as PDFs following approval at the subsequent meeting. They provide a transparent record of decisions made in the running and preservation of Brampton Old Church.</p>
+      <p>Minutes are published here as PDFs following approval at the subsequent meeting. Meetings are open to all members.</p>
 
       <div class="minutes-grid reveal">
 
-        <!-- ── Duplicate and update these cards as PDFs are added ── -->
 
         <div class="minute-card">
-          <span class="date">January 2025</span>
-          <h4>Trustees' Meeting</h4>
-          <a href="minutes/2025-01-trustees-meeting.pdf">Download PDF</a>
+          <span class="date">September 2025</span>
+          <h4>Council of Management Meeting</h4>
+          <a href="minutes/03.09.25 Council of Management Meeting minutes.pdf">Download PDF</a>
         </div>
 
         <div class="minute-card">
-          <span class="date">April 2025</span>
-          <h4>Trustees' Meeting</h4>
-          <a href="minutes/2025-04-trustees-meeting.pdf">Download PDF</a>
+          <span class="date">December 2025</span>
+          <h4>Council of Management Meeting</h4>
+          <a href="minutes/12.11.25 Council of Management Meeting minutes.pdf">Download PDF</a>
         </div>
 
         <div class="minute-card">
-          <span class="date">July 2025</span>
-          <h4>Trustees' Meeting</h4>
-          <a href="minutes/2025-07-trustees-meeting.pdf">Download PDF</a>
-        </div>
-
-        <div class="minute-card">
-          <span class="date">October 2025</span>
-          <h4>Annual General Meeting</h4>
-          <a href="minutes/2025-10-agm.pdf">Download PDF</a>
+          <span class="date">January 2026</span>
+          <h4>Council of Management Meeting</h4>
+          <a href="minutes/14.1.26 Council of Management Meeting minutes.pdf">Download PDF</a>
         </div>
 
       </div>
-
-      <p class="minutes-note">
-        PDFs will appear here once uploaded to the <code>minutes/</code> folder of the repository. To add minutes, upload the PDF to that folder and add a new card above following the same pattern.
-      </p>
     </div>
   </section>
 
@@ -804,34 +819,30 @@
       <h2>Trustees</h2>
       <div class="ornament"><span>✦</span></div>
 
-      <p>Brampton Preservation Trust is governed by a board of trustees who give their time voluntarily in service of the church and the local community.</p>
+      <p>Brampton Preservation Trust is governed by a board of trustees who give their time voluntarily.</p>
 
       <div class="trustees-grid reveal">
 
         <!-- ── Update names, roles and add/remove cards as needed ── -->
 
         <div class="trustee-card">
-          <h4>Name Surname</h4>
+          <h4>Tim Cheetham</h4>
           <span class="role">Chair</span>
         </div>
         <div class="trustee-card">
-          <h4>Name Surname</h4>
+          <h4>Susie Davies</h4>
           <span class="role">Secretary</span>
         </div>
         <div class="trustee-card">
-          <h4>Name Surname</h4>
+          <h4>Nick Davis</h4>
           <span class="role">Treasurer</span>
         </div>
         <div class="trustee-card">
-          <h4>Name Surname</h4>
+          <h4>Maksymilian Loth-Hill</h4>
           <span class="role">Trustee</span>
         </div>
         <div class="trustee-card">
-          <h4>Name Surname</h4>
-          <span class="role">Trustee</span>
-        </div>
-        <div class="trustee-card">
-          <h4>Name Surname</h4>
+          <h4>David Moorat</h4>
           <span class="role">Trustee</span>
         </div>
 
@@ -841,12 +852,9 @@
         <div>
           <h3>Contact the Secretary</h3>
           <p>For enquiries about the Trust, the church, events, or how to support our work, please get in touch with our Secretary.</p>
-          <p style="margin-top:0.6rem;">
-            <!-- Update the email address below -->
-            <strong>Email:</strong> <a href="/cdn-cgi/l/email-protection#bbc8ded8c9decfdac9c2fbd9c9dad6cbcfd4d5cbc9dec8dec9cddacfd2d4d5cfc9cec8cf95d4c9dc95ced0"><span class="__cf_email__" data-cfemail="4c3f292f3e29382d3e350c2e3e2d213c3823223c3e293f293e3a2d38252322383e393f3862233e2b623927">[email&#160;protected]</span></a>
           </p>
         </div>
-        <a href="/cdn-cgi/l/email-protection#f586909687908194878cb59787949885819a9b8587908690878394819c9a9b8187808681db9a8792db809e" class="contact-btn">Email Us</a>
+        <a href="mailto:susiemdavies@btinternet.com" class="contact-btn">Email Us</a>
       </div>
     </div>
   </section>
@@ -912,19 +920,13 @@
         <div class="support-card">
           <div class="icon">🕯️</div>
           <h4>Donate</h4>
-          <p>A financial contribution of any size makes a direct and lasting difference to the conservation of the church. Donations can be made by contacting the Treasurer.</p>
+          <p>A financial contribution of any size makes a direct and lasting difference to the conservation of the church. Donations can be made by contacting the Treasurer or through the collection box in the church.</p>
         </div>
 
         <div class="support-card">
           <div class="icon">🌿</div>
           <h4>Volunteer</h4>
-          <p>We welcome volunteers to help with churchyard maintenance, open days, and special events throughout the year. No specialist skills required — just enthusiasm.</p>
-        </div>
-
-        <div class="support-card">
-          <div class="icon">📋</div>
-          <h4>Become a Member</h4>
-          <p>Annual membership supports the Trust's running costs and gives you a say in our work at the AGM. Please contact the Secretary for details.</p>
+          <p>We welcome volunteers to help with cleaning, maintenance, open days, and special events throughout the year. No specialist skills required, just enthusiasm.</p>
         </div>
 
         <div class="support-card">
@@ -936,7 +938,7 @@
       </div>
 
       <p style="margin-top:2.5rem;font-size:0.95rem;color:var(--ink-soft);">
-        To discuss any of the above, please <a href="/cdn-cgi/l/email-protection#92e1f7f1e0f7e6f3e0ebd2f0e0f3ffe2e6fdfce2e0f7e1f7e0e4f3e6fbfdfce6e0e7e1e6bcfde0f5bce7f9"><strong>email the Secretary</strong></a>.
+        To discuss any of the above, please <a href="mailto:susiemdavies@btinternet.com"><strong>email the Secretary</strong></a>.
       </p>
     </div>
   </section>
@@ -962,13 +964,13 @@
         </div>
         <div class="footer-col">
           <h5>Find the Church</h5>
-          <p>Brampton Old Church<br>Brampton, Cumbria<br>CA8</p>
-          <p style="margin-top:0.8rem;">Approximately one mile from<br>Brampton town centre.</p>
+          <p>Brampton Old Church<br>Old Church Lane<br>Brampton, Cumbria<br>CA8 2AA</p>
         </div>
       </div>
       <div class="footer-bottom">
-        <span>© <span id="yr"></span> Brampton Preservation Trust. All rights reserved.</span>
-        <span class="charity-no">Registered Charity No. XXXXXXX</span>
+        <span>© <span id="yr"></span> The Brampton Preservation Trust Ltd. All rights reserved.</span>
+        <span class="charity-no">Registered Charity No. 511885</span>
+        <span class="charity-no">Company No. 01578777</span>
       </div>
     </div>
   </footer>
