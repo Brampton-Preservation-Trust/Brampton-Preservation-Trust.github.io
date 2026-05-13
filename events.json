@@ -1,12 +1,5 @@
 [
     {
-      "date": "2026-04-05",
-      "time": "6:00 am",
-      "location": "Brampton Old Church",
-      "title": "Easter Morning",
-      "description": "A traditional Easter dawn service open to all, celebrating the season in the peaceful setting of Brampton Old Church. All are welcome."
-    },
-    {
       "date": "2026-05-13",
       "time": "7:00 pm",
       "location": "David Moorat's House",
@@ -22,7 +15,7 @@
     },
     {
       "date": "2026-07-08",
-      "time": null,
+      "time": "7:00 pm",
       "location": "Brampton Old Church",
       "title": "Annual General Meeting (AGM)",
       "description": null
