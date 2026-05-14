@@ -690,6 +690,60 @@
   color: rgba(255,255,255,0.95);
 }
 
+/* ── FACEBOOK LINK ───────────────────────────────────────────── */
+.facebook-section {
+  margin-top: 2.5rem;
+  padding: 2rem;
+  border: 1px solid var(--stone-dark);
+  background:
+    linear-gradient(135deg, rgba(184,146,42,0.08), rgba(74,92,58,0.06)),
+    var(--cream);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.facebook-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--gold);
+}
+
+.facebook-section h3 {
+  margin-bottom: 0.4rem;
+}
+
+.facebook-section p {
+  max-width: 520px;
+  margin: 0 auto 1.4rem;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+.facebook-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  border: 1px solid var(--earth);
+  background: var(--earth);
+  color: var(--cream);
+  padding: 0.7em 1.8em;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  transition: all 0.2s;
+}
+
+.facebook-btn:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--ink);
+}
+
   </style>
 </head>
 <body>
@@ -1064,6 +1118,23 @@
         </div>
 
       </div>
+
+      <div class="facebook-section reveal">
+  <h3>Follow the Trust on Facebook</h3>
+  <p>
+    Keep up to date with news, events, photographs, and announcements from
+    Brampton Preservation Trust.
+  </p>
+  <a
+    href="https://www.facebook.com/people/Brampton-Preservation-Trust/61589377634910/"
+    class="facebook-btn"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Visit Brampton Preservation Trust on Facebook"
+  >
+    Visit our Facebook Page
+  </a>
+</div>
 
       <p style="margin-top:2.5rem;font-size:0.95rem;color:var(--ink-soft);">
         To discuss any of the above, please <a href="mailto:susiemdavies@btinternet.com"><strong>email the Secretary</strong></a>.
