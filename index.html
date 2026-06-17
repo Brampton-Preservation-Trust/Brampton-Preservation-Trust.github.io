@@ -14,6 +14,13 @@
 
   <meta name="robots" content="index, follow" />
 
+  <meta name="theme-color" content="#f7f3ed" />
+
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <meta name="twitter:image:alt" content="Brampton Old Church in Cumbria" />
+
   <!-- Open Graph / Facebook / LinkedIn -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Brampton Preservation Trust" />
@@ -223,6 +230,7 @@
     #hero {
       position: relative;
       min-height: 92vh;
+      min-height: 92svh;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -397,6 +405,10 @@
     }
 
     /* ── MINUTES ─────────────────────────────────────────────── */
+
+    .minute-card a {
+  overflow-wrap: anywhere;
+}
     #minutes { background: #f0ebe2; }
 
     .minutes-grid {
@@ -774,6 +786,19 @@
   color: var(--ink);
 }
 
+@media (max-width: 520px) {
+  .hero-cta {
+    display: block;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto 0.9rem;
+  }
+
+  .hero-cta.outline {
+    margin-right: auto;
+  }
+}
+
   </style>
 
 <script type="application/ld+json">
@@ -835,6 +860,22 @@
       "publisher": {
         "@id": "https://bramptonpreservationtrust.co.uk/#organization"
       }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://bramptonpreservationtrust.co.uk/#webpage",
+      "url": "https://bramptonpreservationtrust.co.uk/",
+      "name": "Brampton Preservation Trust | Brampton Old Church, Cumbria",
+      "isPartOf": {
+        "@id": "https://bramptonpreservationtrust.co.uk/#website"
+      },
+      "about": {
+        "@id": "https://bramptonpreservationtrust.co.uk/#organization"
+      },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://bramptonpreservationtrust.co.uk/images/church-social.jpg"
+      }
     }
   ]
 }
@@ -847,10 +888,17 @@
   <nav>
     <div class="inner">
       <span class="nav-brand">Brampton Preservation Trust</span>
-      <button class="nav-toggle" aria-label="Toggle menu" onclick="this.nextElementSibling.classList.toggle('open')">
-        <span></span><span></span><span></span>
-      </button>
-      <ul class="nav-links">
+<button
+  class="nav-toggle"
+  aria-label="Toggle menu"
+  aria-controls="primary-menu"
+  aria-expanded="false"
+  type="button"
+>
+  <span></span><span></span><span></span>
+</button>
+
+<ul class="nav-links" id="primary-menu">
         <li><a href="#about">About</a></li>
         <li><a href="#events">Events</a></li>
         <li><a href="#minutes">Minutes</a></li>
@@ -860,6 +908,7 @@
       </ul>
     </div>
   </nav>
+  <main id="main">
 
   <!-- ── HERO ────────────────────────────────────────────────── -->
   <section id="hero">
@@ -1254,7 +1303,8 @@
       </p>
     </div>
   </section>
-
+  
+  </main>
   <!-- ── FOOTER ──────────────────────────────────────────────── -->
   <footer>
     <div class="footer-inner">
@@ -1370,11 +1420,22 @@
     document.getElementById('yr').textContent = new Date().getFullYear();
 
     // ── Close mobile nav on link click ────────────────────────────
-    document.querySelectorAll('.nav-links a').forEach(a => {
-      a.addEventListener('click', () => {
-        document.querySelector('.nav-links').classList.remove('open');
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (navToggle && navLinks) {
+      navToggle.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('open');
+        navToggle.setAttribute('aria-expanded', String(isOpen));
       });
-    });
+
+      navLinks.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
 
     async function loadHeroImage() {
     let images;
@@ -1429,3 +1490,5 @@
 </script>
 <script data-goatcounter="https://cdjb.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
