@@ -15,6 +15,12 @@
   <meta name="robots" content="index, follow" />
 
   <meta name="theme-color" content="#f7f3ed" />
+  <meta name="author" content="Brampton Preservation Trust" />
+  <meta name="language" content="en-GB" />
+
+  <link rel="preload" as="image" href="images/church-hero.jpg" fetchpriority="high" />
+  <link rel="alternate" type="application/pdf" href="https://bramptonpreservationtrust.co.uk/resources/graveyard_booklet.pdf" title="Brampton Old Church Self-Guided Graveyard Tour" />
+  <link rel="preconnect" href="https://gc.zgo.at" crossorigin />
 
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -23,6 +29,7 @@
 
   <!-- Open Graph / Facebook / LinkedIn -->
   <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_GB" />
   <meta property="og:site_name" content="Brampton Preservation Trust" />
   <meta property="og:title" content="Brampton Preservation Trust | Brampton Old Church, Cumbria" />
   <meta
@@ -31,6 +38,8 @@
   />
   <meta property="og:url" content="https://bramptonpreservationtrust.co.uk/" />
   <meta property="og:image" content="https://bramptonpreservationtrust.co.uk/images/church-social.jpg" />
+  <meta property="og:image:secure_url" content="https://bramptonpreservationtrust.co.uk/images/church-social.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:alt" content="Brampton Old Church in Cumbria" />
 
   <!-- Twitter / X -->
@@ -210,7 +219,7 @@
       transition: all 0.3s;
     }
 
-    @media (max-width: 660px) {
+    @media (max-width: 900px) {
       .nav-toggle { display: flex; }
       .nav-links {
         display: none;
@@ -804,6 +813,67 @@
   }
 }
 
+
+    /* ── Accessibility and lightweight performance improvements ── */
+    .skip-link {
+      position: fixed;
+      left: 1rem;
+      top: 1rem;
+      z-index: 10000;
+      padding: 0.65rem 1rem;
+      background: var(--ink);
+      color: var(--cream);
+      transform: translateY(-200%);
+      transition: transform 0.2s ease;
+    }
+    .skip-link:focus { transform: translateY(0); color: var(--cream); }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    #resources { background: #f0ebe2; }
+    .resource-box {
+      margin-top: 2rem;
+      padding: 2rem;
+      border: 1px solid var(--stone-dark);
+      background: var(--cream);
+    }
+    .resource-box h3 { margin-bottom: 0.7rem; }
+    .resource-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.9rem 1.25rem;
+      margin-top: 1.4rem;
+    }
+    .resource-download {
+      display: inline-block;
+      color: var(--moss);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .resource-download::after { content: ' ↓'; }
+
+    @media (max-width: 520px) {
+      .resource-box { padding: 1.5rem; }
+      .resource-actions { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
+
   </style>
 
 <script type="application/ld+json">
@@ -816,7 +886,7 @@
       "name": "Brampton Preservation Trust",
       "legalName": "The Brampton Preservation Trust Ltd",
       "url": "https://bramptonpreservationtrust.co.uk/",
-      "logo": "https://bramptonpreservationtrust.co.uk/images/church-social.png",
+      "image": "https://bramptonpreservationtrust.co.uk/images/church-social.jpg",
       "description": "Brampton Preservation Trust is a registered charity caring for Brampton Old Church and preserving the historic built heritage of Brampton and District.",
       "foundingDate": "1981",
       "identifier": [
@@ -840,14 +910,27 @@
         "addressCountry": "GB"
       },
       "email": "mailto:susiemdavies@btinternet.com",
+      "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": "Brampton and District, Cumbria"
+      },
+      "location": {
+        "@id": "https://bramptonpreservationtrust.co.uk/#brampton-old-church"
+      },
       "sameAs": [
         "https://www.facebook.com/people/Brampton-Preservation-Trust/61589377634910/"
       ]
     },
     {
-      "@type": "Place",
+      "@type": [
+        "Place",
+        "LandmarksOrHistoricalBuildings"
+      ],
       "@id": "https://bramptonpreservationtrust.co.uk/#brampton-old-church",
       "name": "Brampton Old Church",
+      "url": "https://bramptonpreservationtrust.co.uk/#history",
+      "description": "A historic church at Old Church Lane in Brampton, Cumbria, cared for by Brampton Preservation Trust.",
+      "image": "https://bramptonpreservationtrust.co.uk/images/church-social.jpg",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "Old Church Lane",
@@ -862,6 +945,7 @@
       "@id": "https://bramptonpreservationtrust.co.uk/#website",
       "url": "https://bramptonpreservationtrust.co.uk/",
       "name": "Brampton Preservation Trust",
+      "inLanguage": "en-GB",
       "publisher": {
         "@id": "https://bramptonpreservationtrust.co.uk/#organization"
       }
@@ -871,15 +955,65 @@
       "@id": "https://bramptonpreservationtrust.co.uk/#webpage",
       "url": "https://bramptonpreservationtrust.co.uk/",
       "name": "Brampton Preservation Trust | Brampton Old Church, Cumbria",
+      "description": "Brampton Preservation Trust is a registered charity caring for Brampton Old Church, preserving historic buildings and local heritage in Brampton, Cumbria.",
+      "inLanguage": "en-GB",
       "isPartOf": {
         "@id": "https://bramptonpreservationtrust.co.uk/#website"
       },
-      "about": {
-        "@id": "https://bramptonpreservationtrust.co.uk/#organization"
-      },
+      "about": [
+        {
+          "@id": "https://bramptonpreservationtrust.co.uk/#organization"
+        },
+        {
+          "@id": "https://bramptonpreservationtrust.co.uk/#brampton-old-church"
+        }
+      ],
       "primaryImageOfPage": {
         "@type": "ImageObject",
-        "url": "https://bramptonpreservationtrust.co.uk/images/church-social.jpg"
+        "url": "https://bramptonpreservationtrust.co.uk/images/church-social.jpg",
+        "width": 1200,
+        "height": 630
+      },
+      "hasPart": [
+        {
+          "@id": "https://bramptonpreservationtrust.co.uk/graveyard-tour.html#article"
+        },
+        {
+          "@id": "https://bramptonpreservationtrust.co.uk/resources/graveyard_booklet.pdf#document"
+        }
+      ]
+    },
+    {
+      "@type": "Article",
+      "@id": "https://bramptonpreservationtrust.co.uk/graveyard-tour.html#article",
+      "url": "https://bramptonpreservationtrust.co.uk/graveyard-tour.html",
+      "headline": "Self-Guided Graveyard Tour at Brampton Old Church",
+      "description": "An introduction to the self-guided tour of the historic graveyard at Brampton Old Church, with a free downloadable booklet.",
+      "inLanguage": "en-GB",
+      "publisher": {
+        "@id": "https://bramptonpreservationtrust.co.uk/#organization"
+      },
+      "about": {
+        "@id": "https://bramptonpreservationtrust.co.uk/#brampton-old-church"
+      },
+      "associatedMedia": {
+        "@id": "https://bramptonpreservationtrust.co.uk/resources/graveyard_booklet.pdf#document"
+      }
+    },
+    {
+      "@type": "DigitalDocument",
+      "@id": "https://bramptonpreservationtrust.co.uk/resources/graveyard_booklet.pdf#document",
+      "name": "Brampton Preservation Trust Self-Guided Graveyard Tour",
+      "description": "An eight-page self-guided tour booklet with a numbered map and information about memorials and grave covers at Brampton Old Church.",
+      "url": "https://bramptonpreservationtrust.co.uk/resources/graveyard_booklet.pdf",
+      "contentUrl": "https://bramptonpreservationtrust.co.uk/resources/graveyard_booklet.pdf",
+      "encodingFormat": "application/pdf",
+      "inLanguage": "en-GB",
+      "publisher": {
+        "@id": "https://bramptonpreservationtrust.co.uk/#organization"
+      },
+      "about": {
+        "@id": "https://bramptonpreservationtrust.co.uk/#brampton-old-church"
       }
     }
   ]
@@ -888,11 +1022,12 @@
 
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- ── NAV ─────────────────────────────────────────────────── -->
   <nav>
     <div class="inner">
-      <span class="nav-brand">Brampton Preservation Trust</span>
+      <a class="nav-brand" href="/" aria-label="Brampton Preservation Trust home">Brampton Preservation Trust</a>
 <button
   class="nav-toggle"
   aria-label="Toggle menu"
@@ -909,6 +1044,7 @@
         <li><a href="#minutes">Minutes</a></li>
         <li><a href="#trustees">Trustees</a></li>
         <li><a href="#history">History</a></li>
+        <li><a href="graveyard-tour.html">Graveyard Tour</a></li>
         <li><a href="#support">Support Us</a></li>
       </ul>
     </div>
@@ -946,6 +1082,7 @@
             width="477"
             height="637"
             loading="lazy"
+            decoding="async"
           />
           <div class="photo-credit">
             “<a href="https://www.flickr.com/photos/jcameronuk/26205017995" title="Brampton Old Church, Cumbria">Brampton Old Church, Cumbria</a>” by <a href="https://www.flickr.com/photos/jcameronuk/">James Alexander Cameron</a>, <a href="https://creativecommons.org/licenses/by-nc-sa/2.0/deed.en" rel="license noopener noreferrer">CC BY-NC-SA 2.0</a>
@@ -1265,6 +1402,25 @@
     </div>
   </section>
 
+
+  <!-- ── RESOURCES ───────────────────────────────────────────── -->
+  <section id="resources" aria-labelledby="resources-title">
+    <div class="wrap">
+      <span class="section-label">Visitor Resource</span>
+      <h2 id="resources-title">Self-Guided Graveyard Tour</h2>
+      <div class="ornament"><span>✦</span></div>
+
+      <div class="resource-box reveal">
+        <h3>Explore the monuments and stories of Brampton Old Church</h3>
+        <p>Our free eight-page booklet includes a numbered map and information about fifteen memorials and grave covers in the churchyard and inside the church.</p>
+        <div class="resource-actions">
+          <a href="graveyard-tour.html" class="contact-btn">Read About the Tour</a>
+          <a href="resources/graveyard_booklet.pdf" class="resource-download" type="application/pdf" download>Download the Booklet (PDF)</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ── SUPPORT ─────────────────────────────────────────────── -->
   <section id="support">
     <div class="wrap">
@@ -1336,6 +1492,7 @@
             <li><a href="#minutes">Meeting Minutes</a></li>
             <li><a href="#trustees">Trustees & Contact</a></li>
             <li><a href="#history">History</a></li>
+            <li><a href="graveyard-tour.html">Graveyard Tour</a></li>
             <li><a href="#support">Support Us</a></li>
           </ul>
         </div>
@@ -1504,6 +1661,6 @@
     }
 </script>
 <script data-goatcounter="https://cdjb.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+        async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>
