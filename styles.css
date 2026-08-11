@@ -384,7 +384,7 @@
       color: var(--earth-light);
       font-weight: 600;
     }
-    .minute-card h4 { font-size: 1rem; }
+    .minute-card h3, .minute-card h4 { font-size: 1rem; }
     .minute-card a {
       display: inline-flex;
       align-items: center;
@@ -491,7 +491,7 @@
       padding: 1.4rem 1.2rem;
       background: var(--cream);
     }
-    .trustee-card h4 { font-size: 1rem; margin-bottom: 0.2rem; }
+    .trustee-card h3, .trustee-card h4 { font-size: 1rem; margin-bottom: 0.2rem; }
     .trustee-card .role {
       font-size: 0.75rem;
       color: var(--earth-light);
@@ -991,4 +991,37 @@ main > section:not(#hero) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
   .reveal { opacity: 1; transform: none; }
+}
+
+
+/* Governance page */
+.governance-page #trustees,
+.governance-page #minutes {
+  background: transparent;
+}
+
+.governance-page .governance-block {
+  padding: 0;
+  margin-top: 3rem;
+}
+
+.governance-page .governance-block + .governance-block {
+  border-top: var(--rule);
+  padding-top: 3rem;
+}
+
+.governance-page .governance-block h2 {
+  margin-top: 0;
+}
+
+.governance-page .governance-summary {
+  margin: 2.5rem 0 0;
+  padding: 1.5rem 1.7rem;
+  border: 1px solid var(--stone-dark);
+  background: #f0ebe2;
+}
+
+.governance-page .governance-summary p {
+  margin: 0;
+  color: var(--ink-soft);
 }

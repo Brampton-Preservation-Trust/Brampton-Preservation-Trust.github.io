@@ -131,7 +131,7 @@
       if (!upcoming.length) {
         const message = document.createElement('p');
         message.className = 'events-empty';
-        message.innerHTML = 'No upcoming events at present. Please check back soon, or <a href="#trustees">contact the Secretary</a> for more information.';
+        message.innerHTML = 'No upcoming events at present. Please check back soon, or <a href="governance.html#contact">contact the Secretary</a> for more information.';
         list.append(message);
       } else {
         upcoming.forEach((event) => list.append(eventNode(event)));
