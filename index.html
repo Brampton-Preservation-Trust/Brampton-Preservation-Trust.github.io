@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,8 +17,6 @@
   <meta name="theme-color" content="#f7f3ed" />
   <meta name="author" content="Brampton Preservation Trust" />
   <meta name="language" content="en-GB" />
-
-  <link rel="preload" as="image" href="images/church-hero.jpg" fetchpriority="high" />
   <link rel="alternate" type="application/pdf" href="https://bramptonpreservationtrust.co.uk/resources/graveyard_booklet.pdf" title="Brampton Old Church Self-Guided Graveyard Tour" />
   <link rel="preconnect" href="https://gc.zgo.at" crossorigin />
 
@@ -56,825 +54,22 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
 
-  <style>
-    /* ── Variables ───────────────────────────────────────────── */
-    :root {
-      --stone:       #e8e2d9;
-      --stone-dark:  #c9bfaf;
-      --earth:       #5c4a32;
-      --earth-light: #8c7355;
-      --moss:        #4a5c3a;
-      --cream:       #f7f3ed;
-      --ink:         #2a1f14;
-      --ink-soft:    #4a3c2c;
-      --gold:        #b8922a;
-      --gold-light:  #d4a93c;
-      --rule:        1px solid rgba(92,74,50,0.18);
-    }
+  <script>
+    // Select the seasonal hero before the stylesheet is parsed so only the intended hero image is requested.
+    (() => {
+      const month = new Date().getMonth() + 1;
+      const file = month >= 3 && month <= 5
+        ? 'images/church-spring.jpg'
+        : month >= 6 && month <= 8
+          ? 'images/church-summer.jpg'
+          : month >= 9 && month <= 11
+            ? 'images/church-autumn.jpg'
+            : 'images/church-winter.jpg';
+      document.documentElement.style.setProperty('--hero-image', `url("${file}")`);
+    })();
+  </script>
 
-    /* ── Reset & Base ────────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--cream);
-      color: var(--ink);
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: 18px;
-      line-height: 1.75;
-      font-weight: 300;
-    }
-
-    /* Stone-grain texture overlay */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0.5;
-    }
-
-    img { max-width: 100%; display: block; }
-    a { color: var(--earth); text-decoration: none; }
-    a:hover { color: var(--gold); }
-
-    /* ── Layout helpers ──────────────────────────────────────── */
-    .wrap {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-    .wide-wrap {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-
-    /* ── Section spacing ─────────────────────────────────────── */
-    section { padding: 5rem 0; }
-    section + section { border-top: var(--rule); }
-
-    /* ── Ornamental rule ─────────────────────────────────────── */
-    .ornament {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin: 1.5rem 0 2.5rem;
-    }
-    .ornament::before, .ornament::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--stone-dark);
-    }
-    .ornament span {
-      color: var(--gold);
-      font-size: 1.4rem;
-      line-height: 1;
-    }
-
-    /* ── Typography ──────────────────────────────────────────── */
-    h1, h2, h3, h4 {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-weight: 600;
-      line-height: 1.2;
-    }
-    h2 {
-      font-size: clamp(1.7rem, 4vw, 2.4rem);
-      color: var(--earth);
-      margin-bottom: 0.4rem;
-    }
-    h3 {
-      font-size: 1.25rem;
-      color: var(--earth);
-    }
-    .section-label {
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      font-size: 0.7rem;
-      color: var(--earth-light);
-      font-family: 'Crimson Pro', serif;
-      font-weight: 600;
-    }
-    p { margin-bottom: 1.1em; }
-    p:last-child { margin-bottom: 0; }
-
-    /* ── NAV ─────────────────────────────────────────────────── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(247,243,237,0.94);
-      backdrop-filter: blur(8px);
-      border-bottom: var(--rule);
-    }
-    nav .inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.85rem 2rem;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    .nav-brand {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--earth);
-      letter-spacing: 0.02em;
-    }
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-    .nav-links a {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--ink-soft);
-      font-weight: 400;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--gold); }
-
-    /* Mobile nav toggle */
-    .nav-toggle {
-      display: none;
-      background: none;
-      border: none;
-      cursor: pointer;
-      flex-direction: column;
-      gap: 5px;
-      padding: 4px;
-    }
-    .nav-toggle span {
-      display: block;
-      width: 22px;
-      height: 2px;
-      background: var(--ink);
-      transition: all 0.3s;
-    }
-
-    @media (max-width: 900px) {
-      .nav-toggle { display: flex; }
-      .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0; right: 0;
-        background: var(--cream);
-        border-bottom: var(--rule);
-        flex-direction: column;
-        padding: 1.5rem 2rem;
-        gap: 1.2rem;
-      }
-      .nav-links.open { display: flex; }
-    }
-
-    /* ── HERO ─────────────────────────────────────────────────── */
-    #hero {
-      position: relative;
-      min-height: 92vh;
-      min-height: 92svh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      overflow: hidden;
-      padding: 6rem 2rem;
-      border-top: none;
-    }
-
-    /* Layered background: gradient + subtle pattern */
-    #hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-        linear-gradient(
-        to bottom,
-        rgba(30, 20, 10, 0.45) 0%,
-        rgba(20, 12, 5, 0.55) 100%
-        ),
-        var(--hero-image, url('images/church-hero.jpg')) center center / cover no-repeat;
-    filter: blur(2px);
-    transform: scale(1.05);
-    }
-
-
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      max-width: 680px;
-    }
-    .hero-badge {
-      display: inline-block;
-      border: 1px solid var(--stone-dark);
-      color: rgba(255,255,255,0.75);
-      border-color: rgba(255,255,255,0.35); 
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.22em;
-      padding: 0.4em 1.2em;
-      margin-bottom: 2rem;
-      font-weight: 600;
-    }
-    .hero-badge     { color: rgba(255,255,255,0.75); border-color: rgba(255,255,255,0.35); }
-    .scroll-hint    { color: rgba(255,255,255,0.6); }
-
-    .hero-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.4rem, 7vw, 4.2rem);
-      font-weight: 800;
-      color: #f9f8f7;
-      line-height: 1.08;
-      margin-bottom: 0.5rem;
-    }
-    .hero-title em {
-      font-style: italic;
-      color: #fff; 
-    }
-    .hero-sub {
-      font-size: 1.15rem;
-      color: rgba(255,255,255,0.8);
-      margin: 1.5rem 0 2.5rem;
-      font-weight: 300;
-      font-style: italic;
-    }
-
-    /* Gold cross icon */
-    .cross-icon {
-      display: block;
-      margin: 0 auto 2rem;
-      width: 36px;
-      height: 36px;
-      position: relative;
-    }
-    .cross-icon::before, .cross-icon::after {
-      content: '';
-      position: absolute;
-      background: var(--gold);
-      border-radius: 2px;
-    }
-    .cross-icon::before { width: 4px; height: 100%; left: 50%; transform: translateX(-50%); }
-    .cross-icon::after  { width: 100%; height: 4px; top: 30%; }
-
-    .hero-cta {
-      display: inline-block;
-      background: var(--earth);
-      color: var(--cream);
-      padding: 0.75em 2.2em;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      font-weight: 400;
-      transition: background 0.25s, color 0.25s;
-      margin-right: 1rem;
-    }
-    .hero-cta:hover { background: var(--gold); color: var(--ink); }
-    .hero-cta.outline {
-      background: transparent;
-      color: var(--cream);
-      border: 1px solid var(--stone-dark);
-      margin-right: 0;
-    }
-    .hero-cta.outline:hover { border-color: var(--gold); color: var(--gold); background: transparent; }
-
-    /* Scroll indicator */
-    .scroll-hint {
-      position: absolute;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.4rem;
-      color: rgba(255,255,255,0.6); 
-      font-size: 0.65rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
-    .scroll-hint .arrow {
-      width: 1px;
-      height: 36px;
-      background: linear-gradient(to bottom, var(--earth-light), transparent);
-      animation: scrollPulse 2s ease-in-out infinite;
-    }
-    @keyframes scrollPulse {
-      0%, 100% { opacity: 0.4; transform: scaleY(1); }
-      50% { opacity: 1; transform: scaleY(1.1); }
-    }
-
-    /* ── ABOUT ───────────────────────────────────────────────── */
-    #about { background: var(--cream); }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: start;
-    }
-    .about-image-frame {
-      position: relative;
-    }
-    .about-image-frame::before {
-      content: '';
-      position: absolute;
-      top: -12px; left: -12px;
-      right: 12px; bottom: 12px;
-      border: 1px solid var(--stone-dark);
-      pointer-events: none;
-      z-index: 0;
-    }
-    .about-image-frame .placeholder-img {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      aspect-ratio: 3/4;
-      background: linear-gradient(135deg, #d9d1c4 0%, #c4b89e 50%, #b8a882 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      color: var(--earth-light);
-    }
-    .placeholder-img .church-svg { opacity: 0.5; }
-    .placeholder-img p { font-size: 0.8rem; text-align: center; max-width: 80%; line-height: 1.4; font-style: italic; }
-
-    @media (max-width: 700px) {
-      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-    }
-
-    /* ── MINUTES ─────────────────────────────────────────────── */
-
-    .minute-card a {
-  overflow-wrap: anywhere;
-}
-    #minutes { background: #f0ebe2; }
-
-    .minutes-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 1px;
-      background: var(--stone-dark);
-      border: 1px solid var(--stone-dark);
-      margin-top: 2rem;
-    }
-    .minute-card {
-      background: var(--cream);
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      transition: background 0.2s;
-    }
-    .minute-card:hover { background: #fff; }
-    .minute-card .date {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--earth-light);
-      font-weight: 600;
-    }
-    .minute-card h4 { font-size: 1rem; }
-    .minute-card a {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4em;
-      font-size: 0.8rem;
-      color: var(--moss);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      font-weight: 600;
-      margin-top: 0.5rem;
-    }
-    .minute-card a:hover { color: var(--gold); }
-    .minute-card a::after { content: '↓'; }
-
-    .minutes-note {
-      margin-top: 1.5rem;
-      font-size: 0.85rem;
-      color: var(--earth-light);
-      font-style: italic;
-    }
-
-    /* ── EVENTS ──────────────────────────────────────────────── */
-    #events { background: var(--cream); }
-
-    .events-list { margin-top: 2rem; }
-    .event-item {
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 1.5rem 2rem;
-      padding: 2rem 0;
-      border-bottom: var(--rule);
-      align-items: start;
-    }
-    .event-item:first-child { border-top: var(--rule); }
-    .event-date-block {
-      text-align: center;
-      background: var(--earth);
-      color: var(--cream);
-      padding: 0.6rem 0.5rem;
-      line-height: 1;
-    }
-    .event-date-block .day {
-      display: block;
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      font-weight: 800;
-    }
-    .event-date-block .month {
-      display: block;
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      margin-top: 0.2rem;
-      opacity: 0.85;
-    }
-    .event-body h4 { font-size: 1.15rem; margin-bottom: 0.3rem; }
-    .event-meta {
-      font-size: 0.8rem;
-      color: var(--earth-light);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 0.6rem;
-      font-weight: 600;
-    }
-    .event-body p { font-size: 0.95rem; color: var(--ink-soft); }
-
-    /* ── TRUSTEES ────────────────────────────────────────────── */
-    #trustees { background: #f0ebe2; }
-
-    .trustees-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-    .trustee-card {
-      border: 1px solid var(--stone-dark);
-      padding: 1.4rem 1.2rem;
-      background: var(--cream);
-    }
-    .trustee-card h4 { font-size: 1rem; margin-bottom: 0.2rem; }
-    .trustee-card .role {
-      font-size: 0.75rem;
-      color: var(--earth-light);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-weight: 600;
-    }
-    .trustee-card .appointed {
-      font-size: 0.7rem;
-      color: rgba(92, 74, 50, 0.55);
-      margin-top: 0.4rem;
-    }
-
-    .secretary-box {
-      margin-top: 3rem;
-      border-top: var(--rule);
-      padding-top: 2.5rem;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 2rem;
-      align-items: center;
-    }
-    .secretary-box h3 { margin-bottom: 0.4rem; }
-    .secretary-box p { font-size: 0.95rem; color: var(--ink-soft); margin: 0; }
-    .contact-btn {
-      display: inline-block;
-      border: 1px solid var(--earth);
-      color: var(--earth);
-      padding: 0.65em 1.8em;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      white-space: nowrap;
-      transition: all 0.2s;
-    }
-    .contact-btn:hover { background: var(--earth); color: var(--cream); }
-
-    @media (max-width: 600px) {
-      .secretary-box { grid-template-columns: 1fr; }
-    }
-
-    /* ── HISTORY ─────────────────────────────────────────────── */
-    #history { background: var(--earth); color: var(--stone); }
-    #history h2 { color: var(--stone); }
-    #history .section-label { color: var(--stone-dark); opacity: 0.7; }
-    #history .ornament::before, #history .ornament::after { background: rgba(201,191,175,0.3); }
-    #history .ornament span { color: var(--gold-light); }
-    #history p { color: rgba(232,226,217,0.85); }
-    #history a { color: var(--gold-light); }
-    #history a:hover { color: #fff; }
-
-    .history-timeline {
-      margin-top: 2.5rem;
-      position: relative;
-      padding-left: 2rem;
-    }
-    .history-timeline::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0.5rem; bottom: 0.5rem;
-      width: 1px;
-      background: rgba(201,191,175,0.25);
-    }
-    .timeline-item {
-      position: relative;
-      padding: 0 0 2.5rem 2rem;
-    }
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -4px;
-      top: 0.5rem;
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--gold);
-    }
-    .timeline-item .year {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--gold-light);
-      line-height: 1;
-      margin-bottom: 0.4rem;
-    }
-    .timeline-item h4 { color: var(--stone); margin-bottom: 0.3rem; }
-    .timeline-item p { font-size: 0.95rem; margin: 0; }
-
-    /* ── SUPPORT / DONATE ────────────────────────────────────── */
-    #support { background: var(--cream); }
-
-    .support-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2.5rem;
-    }
-    .support-card {
-      border: 1px solid var(--stone-dark);
-      padding: 2rem 1.5rem;
-      position: relative;
-      overflow: hidden;
-    }
-    .support-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 3px;
-      background: var(--gold);
-    }
-    .support-card .icon {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-    }
-    .support-card h4 { margin-bottom: 0.5rem; }
-    .support-card p { font-size: 0.9rem; color: var(--ink-soft); }
-
-    /* ── FOOTER ──────────────────────────────────────────────── */
-    footer {
-      background: var(--ink);
-      color: var(--stone-dark);
-      padding: 4rem 2rem 2.5rem;
-    }
-    .footer-inner {
-      max-width: 860px;
-      margin: 0 auto;
-    }
-    .footer-top {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 3rem;
-      padding-bottom: 2.5rem;
-      border-bottom: 1px solid rgba(201,191,175,0.12);
-    }
-    .footer-col h5 {
-      font-family: 'Playfair Display', serif;
-      font-size: 0.95rem;
-      color: var(--stone);
-      margin-bottom: 1rem;
-    }
-    .footer-col p, .footer-col li {
-      font-size: 0.85rem;
-      line-height: 1.8;
-      color: rgba(201,191,175,0.7);
-    }
-    .footer-col ul { list-style: none; }
-    .footer-col a { color: rgba(201,191,175,0.7); transition: color 0.2s; }
-    .footer-col a:hover { color: var(--gold-light); }
-    .footer-bottom {
-      padding-top: 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.75rem;
-      color: rgba(201,191,175,0.4);
-    }
-    .footer-bottom .charity-no { font-size: 0.72rem; }
-
-    @media (max-width: 620px) {
-      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
-      .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
-    }
-
-    /* ── Fade-in on scroll ───────────────────────────────────── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: none;
-    }
-
-    .hero-photo-credit {
-  position: absolute;
-  bottom: 0.6rem;
-  right: 0.8rem;
-  font-size: 0.65rem;
-  color: rgba(255,255,255,0.55);
-  background: rgba(0,0,0,0.3);
-  padding: 0.2em 0.6em;
-  border-radius: 2px;
-  letter-spacing: 0.02em;
-  z-index: 2;
-}
-
-.hero-photo-credit a {
-  color: rgba(255,255,255,0.65);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.hero-photo-credit a:hover {
-  color: rgba(255,255,255,0.95);
-}
-
-.photo-credit {
-  position: absolute;
-  bottom: 0.6rem;
-  right: 0.6rem;
-  font-size: 0.62rem;
-  color: rgba(255,255,255,0.55);
-  background: rgba(0,0,0,0.35);
-  padding: 0.2em 0.6em;
-  border-radius: 2px;
-  letter-spacing: 0.02em;
-  z-index: 2;
-}
-
-.photo-credit a {
-  color: rgba(255,255,255,0.65);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.photo-credit a:hover {
-  color: rgba(255,255,255,0.95);
-}
-
-/* ── FACEBOOK LINK ───────────────────────────────────────────── */
-.facebook-section {
-  margin-top: 2.5rem;
-  padding: 2rem;
-  border: 1px solid var(--stone-dark);
-  background:
-    linear-gradient(135deg, rgba(184,146,42,0.08), rgba(74,92,58,0.06)),
-    var(--cream);
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.facebook-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: var(--gold);
-}
-
-.facebook-section h3 {
-  margin-bottom: 0.4rem;
-}
-
-.facebook-section p {
-  max-width: 520px;
-  margin: 0 auto 1.4rem;
-  font-size: 0.95rem;
-  color: var(--ink-soft);
-}
-
-.facebook-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55em;
-  border: 1px solid var(--earth);
-  background: var(--earth);
-  color: var(--cream);
-  padding: 0.7em 1.8em;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  transition: all 0.2s;
-}
-
-.facebook-btn:hover {
-  background: var(--gold);
-  border-color: var(--gold);
-  color: var(--ink);
-}
-
-@media (max-width: 520px) {
-  .hero-cta {
-    display: block;
-    width: 100%;
-    max-width: 280px;
-    margin: 0 auto 0.9rem;
-  }
-
-  .hero-cta.outline {
-    margin-right: auto;
-  }
-}
-
-
-    /* ── Accessibility and lightweight performance improvements ── */
-    .skip-link {
-      position: fixed;
-      left: 1rem;
-      top: 1rem;
-      z-index: 10000;
-      padding: 0.65rem 1rem;
-      background: var(--ink);
-      color: var(--cream);
-      transform: translateY(-200%);
-      transition: transform 0.2s ease;
-    }
-    .skip-link:focus { transform: translateY(0); color: var(--cream); }
-
-    a:focus-visible,
-    button:focus-visible {
-      outline: 3px solid var(--gold);
-      outline-offset: 3px;
-    }
-
-    #resources { background: #f0ebe2; }
-    .resource-box {
-      margin-top: 2rem;
-      padding: 2rem;
-      border: 1px solid var(--stone-dark);
-      background: var(--cream);
-    }
-    .resource-box h3 { margin-bottom: 0.7rem; }
-    .resource-actions {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.9rem 1.25rem;
-      margin-top: 1.4rem;
-    }
-    .resource-download {
-      display: inline-block;
-      color: var(--moss);
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-    .resource-download::after { content: ' ↓'; }
-
-    @media (max-width: 520px) {
-      .resource-box { padding: 1.5rem; }
-      .resource-actions { align-items: flex-start; flex-direction: column; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-      .reveal { opacity: 1; transform: none; }
-    }
-
-  </style>
+  <link href="styles.css" rel="stylesheet" />
 
 <script type="application/ld+json">
 {
@@ -1015,6 +210,22 @@
       "about": {
         "@id": "https://bramptonpreservationtrust.co.uk/#brampton-old-church"
       }
+    },
+    {
+      "@type": "Event",
+      "@id": "https://bramptonpreservationtrust.co.uk/#event-st-ninians-2026",
+      "name": "St Ninian's Day Open Evening",
+      "description": "Join us to celebrate St Ninian's Day at Brampton Old Church. Details TBC.",
+      "startDate": "2026-09-16T18:00:00+01:00",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "url": "https://bramptonpreservationtrust.co.uk/#events",
+      "location": {
+        "@id": "https://bramptonpreservationtrust.co.uk/#brampton-old-church"
+      },
+      "organizer": {
+        "@id": "https://bramptonpreservationtrust.co.uk/#organization"
+      }
     }
   ]
 }
@@ -1025,7 +236,7 @@
   <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- ── NAV ─────────────────────────────────────────────────── -->
-  <nav>
+  <nav aria-label="Primary navigation">
     <div class="inner">
       <a class="nav-brand" href="/" aria-label="Brampton Preservation Trust home">Brampton Preservation Trust</a>
 <button
@@ -1056,14 +267,12 @@
     <div class="hero-content">
 
       <h1 class="hero-title">Brampton Preservation Trust</h1>
-      <p class="hero-sub">To preserve for the benefit of the townspeople of Brampton and District the historical, architectural and constructional heritage in the area in the form of buildings of particular beauty or historical, architectural or constructional merit.</p>
-      <a href="#about" class="hero-cta">Learn More</a>
-      <a href="#support" class="hero-cta outline">Support Us</a>
+      <p class="hero-sub">Caring for Brampton Old Church and Brampton's historic built heritage for present and future generations.</p>
+      <a href="graveyard-tour.html" class="hero-cta">Explore the Graveyard Tour</a>
+      <a href="#support" class="hero-cta outline">Support the Trust</a>
     </div>
 
-    <div class="hero-photo-credit">
-        “<a href="https://www.flickr.com/photos/alandlesley/49836776163" title="2020_03_19 004 Brampton Old Church">2020_03_19 004 Brampton Old Church</a>” by <a href="https://www.flickr.com/photos/alandlesley/">Alan Sawyer</a>, <a href="https://creativecommons.org/licenses/by-nc-nd/2.0/deed.en" rel="license noopener noreferrer">CC BY-NC-ND 2.0</a>
-      </div>
+    <div class="hero-photo-credit" aria-live="polite"></div>
 
     <div class="scroll-hint" aria-hidden="true">
       <span>Scroll</span>
@@ -1111,12 +320,22 @@
       <h2>Upcoming Events</h2>
       <div class="ornament"><span>✦</span></div>
 
-      <!-- Events are loaded from events.json -->
-      <div class="events-list" id="events-list">
-        <p class="events-loading" style="color:var(--earth-light);font-style:italic;">Loading events…</p>
+      <!-- Crawlable fallback; site.js refreshes this from events.json when available. -->
+      <div class="events-list" id="events-list" aria-busy="false">
+        <article class="event-item reveal" itemscope itemtype="https://schema.org/Event">
+          <time class="event-date-block" datetime="2026-09-16" itemprop="startDate">
+            <span class="day">16</span>
+            <span class="month">Sep</span>
+          </time>
+          <div class="event-body">
+            <div class="event-meta"><time datetime="2026-09-16T18:00:00+01:00">6:00 pm</time> &nbsp;·&nbsp; <span itemprop="location">Brampton Old Church</span></div>
+            <h3 itemprop="name">St Ninian's Day Open Evening</h3>
+            <p itemprop="description">Join us to celebrate St Ninian's Day at Brampton Old Church. Details TBC.</p>
+          </div>
+        </article>
       </div><!-- /events-list -->
 
-      <p style="margin-top:2rem;font-size:0.9rem;color:var(--earth-light);font-style:italic;">
+      <p class="events-note">
         For the most up-to-date programme, or to enquire about holding an event at the church, please <a href="#trustees">contact the Secretary</a>.
       </p>
     </div>
@@ -1433,21 +652,24 @@
       <div class="support-grid reveal">
 
         <div class="support-card">
-          <div class="icon">🕯️</div>
+          <div class="icon" aria-hidden="true">🕯️</div>
           <h4>Donate</h4>
-          <p>A financial contribution of any size makes a direct and lasting difference to the conservation of the church. Donations can be made by contacting the Treasurer or through the collection box in the church.</p>
+          <p>A financial contribution of any size makes a direct and lasting difference to the conservation of the church. Donations can be arranged through the Trust, or made through the collection box in the church.</p>
+          <a class="text-link" href="mailto:susiemdavies@btinternet.com?subject=Donation%20enquiry">Ask about donating</a>
         </div>
 
         <div class="support-card">
-          <div class="icon">🌿</div>
+          <div class="icon" aria-hidden="true">🌿</div>
           <h4>Volunteer</h4>
-          <p>We welcome volunteers to help with cleaning, maintenance, open days, and special events throughout the year. No specialist skills required, just enthusiasm.</p>
+          <p>We welcome volunteers to help with cleaning, maintenance, open days, and special events throughout the year. No specialist skills are required, just enthusiasm.</p>
+          <a class="text-link" href="mailto:susiemdavies@btinternet.com?subject=Volunteering%20with%20Brampton%20Preservation%20Trust">Ask about volunteering</a>
         </div>
 
         <div class="support-card">
-          <div class="icon">📣</div>
+          <div class="icon" aria-hidden="true">📣</div>
           <h4>Spread the Word</h4>
           <p>Share news of the church and Trust with friends, family, and community groups. Awareness is among the most valuable resources we have.</p>
+          <a class="text-link" href="https://www.facebook.com/people/Brampton-Preservation-Trust/61589377634910/" target="_blank" rel="noopener noreferrer">Follow and share on Facebook</a>
         </div>
 
       </div>
@@ -1469,9 +691,13 @@
   </a>
 </div>
 
-      <p style="margin-top:2.5rem;font-size:0.95rem;color:var(--ink-soft);">
-        To discuss any of the above, please <a href="mailto:susiemdavies@btinternet.com"><strong>email the Secretary</strong></a>.
-      </p>
+      <div class="secretary-box reveal">
+        <div>
+          <h3>Ready to support the Trust?</h3>
+          <p>Contact the Secretary to discuss donating, volunteering, events, or other ways to help care for Brampton Old Church.</p>
+        </div>
+        <a class="contact-btn" href="mailto:susiemdavies@btinternet.com?subject=Supporting%20Brampton%20Preservation%20Trust">Contact the Trust</a>
+      </div>
     </div>
   </section>
   
@@ -1509,151 +735,7 @@
     </div>
   </footer>
 
-  <script>
-    // ── Events loader ─────────────────────────────────────────────
-    const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    const MONTHS_FULL = ['January','February','March','April','May','June',
-                         'July','August','September','October','November','December'];
-
-    async function loadEvents() {
-      const list = document.getElementById('events-list');
-      let events;
-
-      try {
-        const res = await fetch('events.json');
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        events = await res.json();
-      } catch (err) {
-        list.innerHTML = `<p style="color:var(--earth-light);font-style:italic;">
-          Events could not be loaded. Please check that <code>events.json</code> exists in the repository root.
-        </p>`;
-        console.error('Could not load events.json:', err);
-        return;
-      }
-
-      // Sort chronologically
-      events.sort((a, b) => new Date(a.date) - new Date(b.date));
-
-      // Filter to only today or future events (show all if you remove this line)
-      const today = new Date(); today.setHours(0,0,0,0);
-      const upcoming = events.filter(e => new Date(e.date) >= today);
-
-      if (upcoming.length === 0) {
-        list.innerHTML = `<p style="color:var(--earth-light);font-style:italic;">
-          No upcoming events at present. Please check back soon, or <a href="#trustees">contact the Secretary</a> for more information.
-        </p>`;
-        return;
-      }
-
-      list.innerHTML = upcoming.map(event => {
-        const d = new Date(event.date);
-        const day   = d.getDate();
-        const month = MONTHS[d.getMonth()];
-        // time: use event.time if provided, otherwise "All Day"
-        const timeStr = event.time || 'All Day';
-        // location: use event.location if provided
-        const locStr  = event.location || 'Brampton Old Church';
-        const meta    = `${timeStr} &nbsp;·&nbsp; ${locStr}`;
-        // optional description
-        const desc    = event.description
-          ? `<p>${event.description}</p>` : '';
-
-        return `
-        <div class="event-item reveal">
-          <div class="event-date-block">
-            <span class="day">${day}</span>
-            <span class="month">${month}</span>
-          </div>
-          <div class="event-body">
-            <div class="event-meta">${meta}</div>
-            <h4>${event.title}</h4>
-            ${desc}
-          </div>
-        </div>`;
-      }).join('');
-
-      // Re-run scroll-reveal on the new elements
-      list.querySelectorAll('.reveal').forEach(el => scrollObserver.observe(el));
-    }
-
-    // ── Scroll-reveal ─────────────────────────────────────────────
-    const scrollObserver = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          scrollObserver.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12 });
-
-    document.querySelectorAll('.reveal').forEach(el => scrollObserver.observe(el));
-
-    // ── Current year in footer ────────────────────────────────────
-    document.getElementById('yr').textContent = new Date().getFullYear();
-
-    // ── Close mobile nav on link click ────────────────────────────
-    const navToggle = document.querySelector('.nav-toggle');
-    const navLinks = document.querySelector('.nav-links');
-
-    if (navToggle && navLinks) {
-      navToggle.addEventListener('click', () => {
-        const isOpen = navLinks.classList.toggle('open');
-        navToggle.setAttribute('aria-expanded', String(isOpen));
-      });
-
-      navLinks.querySelectorAll('a').forEach(a => {
-        a.addEventListener('click', () => {
-          navLinks.classList.remove('open');
-          navToggle.setAttribute('aria-expanded', 'false');
-        });
-      });
-    }
-
-    async function loadHeroImage() {
-    let images;
-
-    try {
-        const res = await fetch('hero-images.json');
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        images = await res.json();
-    } catch (err) {
-        console.error('Could not load hero-images.json:', err);
-        return; // silently keep whatever is already in the CSS
-    }
-
-    const month = new Date().getMonth() + 1; // 1–12
-
-    const match = images.find(img => {
-        // Normal range e.g. March–May (3–5)
-        if (img.start_month <= img.end_month) {
-        return month >= img.start_month && month <= img.end_month;
-        }
-        // Wrapping range e.g. December–February (12–2)
-        return month >= img.start_month || month <= img.end_month;
-    });
-
-    if (!match) return; // no match, leave default
-
-    // Update the background image
-    const heroBefore = document.getElementById('hero');
-    heroBefore.style.setProperty('--hero-image', `url('${match.file}')`);
-
-    // Update the photo credit
-    const credit = document.querySelector('.hero-photo-credit');
-    if (credit) {
-        credit.innerHTML = `
-        "<a href="${match.title_url}" target="_blank" rel="noopener license">${match.title}</a>"
-        by <a href="${match.author_url}" target="_blank" rel="noopener">${match.author}</a>,
-        <a href="${match.license_url}" target="_blank" rel="noopener noreferrer license">${match.license}</a>
-        `;
-    }
-    }
-
-    loadHeroImage();
-
-    // ── Kick off events load ──────────────────────────────────────
-    loadEvents();
-  </script>
+  <script defer src="site.js"></script>
 
 <script>
     window.goatcounter = {

@@ -3,7 +3,7 @@
       --stone:       #e8e2d9;
       --stone-dark:  #c9bfaf;
       --earth:       #5c4a32;
-      --earth-light: #8c7355;
+      --earth-light: #80684d;
       --moss:        #4a5c3a;
       --cream:       #f7f3ed;
       --ink:         #2a1f14;
@@ -160,7 +160,7 @@
       transition: all 0.3s;
     }
 
-    @media (max-width: 660px) {
+    @media (max-width: 900px) {
       .nav-toggle { display: flex; }
       .nav-links {
         display: none;
@@ -451,6 +451,32 @@
     }
     .event-body p { font-size: 0.95rem; color: var(--ink-soft); }
 
+    .events-note {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: var(--earth-light);
+      font-style: italic;
+    }
+
+    .event-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem 1.1rem;
+      margin-top: 0.85rem;
+    }
+
+    .event-links a {
+      color: var(--moss);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+    }
+
+    .event-links a:hover { color: var(--gold); }
+
+
     /* ── TRUSTEES ────────────────────────────────────────────── */
     #trustees { background: #f0ebe2; }
 
@@ -582,6 +608,9 @@
     }
     .support-card h4 { margin-bottom: 0.5rem; }
     .support-card p { font-size: 0.9rem; color: var(--ink-soft); }
+
+    .support-card .text-link { margin-top: 0.75rem; }
+
 
     /* ── FOOTER ──────────────────────────────────────────────── */
     footer {
@@ -774,6 +803,28 @@ main > section:not(#hero) {
   content-visibility: auto;
   contain-intrinsic-size: auto 700px;
 }
+#resources { background: #f0ebe2; }
+.resource-box {
+  margin-top: 2rem;
+  padding: 2rem;
+  border: 1px solid var(--stone-dark);
+  background: var(--cream);
+}
+.resource-box h3 { margin-bottom: 0.7rem; }
+.resource-download {
+  display: inline-block;
+  color: var(--moss);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.resource-download::after { content: ' ↓'; }
+@media (max-width: 520px) {
+  .resource-box { padding: 1.5rem; }
+  .resource-actions { align-items: flex-start; flex-direction: column; }
+}
+
 .resource-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(240px, 0.65fr);

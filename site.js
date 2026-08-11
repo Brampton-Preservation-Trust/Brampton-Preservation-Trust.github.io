@@ -89,6 +89,25 @@
       description.textContent = event.description;
       body.append(description);
     }
+    if (Array.isArray(event.links) && event.links.length) {
+      const links = document.createElement('div');
+      links.className = 'event-links';
+      event.links.forEach((eventLink) => {
+        if (!eventLink || !eventLink.label || !eventLink.url) return;
+        let resolvedUrl;
+        try {
+          resolvedUrl = new URL(String(eventLink.url), window.location.href);
+        } catch {
+          return;
+        }
+        if (!['http:', 'https:'].includes(resolvedUrl.protocol)) return;
+        const link = document.createElement('a');
+        link.href = String(eventLink.url);
+        link.textContent = String(eventLink.label);
+        links.append(link);
+      });
+      if (links.childElementCount) body.append(links);
+    }
     item.append(dateBlock, body);
     return item;
   }
@@ -119,11 +138,8 @@
         observeRevealItems(list);
       }
     } catch (error) {
-      const message = document.createElement('p');
-      message.className = 'events-empty';
-      message.textContent = 'Events could not be loaded. Please contact the Secretary for the latest programme.';
-      list.replaceChildren(message);
-      console.error('Could not load events:', error);
+      // Keep the crawlable server/static HTML already in the page as a resilient fallback.
+      console.error('Could not refresh events from events.json:', error);
     } finally {
       list.setAttribute('aria-busy', 'false');
     }
@@ -145,30 +161,52 @@
           : month >= image.start_month || month <= image.end_month;
       });
       if (!match || !match.file) return;
-      hero.style.setProperty('--hero-image', `url("${String(match.file).replace(/["\\]/g, '')}")`);
+
+      // The same seasonal file is selected in <head> before CSS loads, avoiding a
+      // preloaded default image followed by a second seasonal image download.
+      document.documentElement.style.setProperty(
+        '--hero-image',
+        `url("${String(match.file).replace(/["\\]/g, '')}")`
+      );
 
       const credit = document.querySelector('.hero-photo-credit');
-      if (credit && match.title && match.title_url && match.author && match.author_url && match.license && match.license_url) {
-        credit.replaceChildren();
+      if (!credit) return;
+      credit.replaceChildren();
+
+      if (match.title && match.title_url) {
         const titleLink = document.createElement('a');
         titleLink.href = match.title_url;
         titleLink.target = '_blank';
-        titleLink.rel = 'noopener noreferrer license';
+        titleLink.rel = 'noopener noreferrer';
         titleLink.textContent = match.title;
+        credit.append('“', titleLink, '”');
+      } else if (match.title) {
+        credit.append(`“${match.title}”`);
+      }
+
+      if (match.author && match.author_url) {
         const authorLink = document.createElement('a');
         authorLink.href = match.author_url;
         authorLink.target = '_blank';
         authorLink.rel = 'noopener noreferrer';
         authorLink.textContent = match.author;
+        credit.append(' by ', authorLink);
+      } else if (match.author) {
+        credit.append(` by ${match.author}`);
+      }
+
+      if (match.license && match.license_url) {
         const licenseLink = document.createElement('a');
         licenseLink.href = match.license_url;
         licenseLink.target = '_blank';
         licenseLink.rel = 'noopener noreferrer license';
         licenseLink.textContent = match.license;
-        credit.append('“', titleLink, '” by ', authorLink, ', ', licenseLink);
+        credit.append(', ', licenseLink);
+      } else if (match.license) {
+        credit.append(`, ${match.license}`);
       }
     } catch (error) {
-      console.info('Using the default hero image.', error);
+      console.info('Using the default hero image and credit.', error);
     }
   }
 
