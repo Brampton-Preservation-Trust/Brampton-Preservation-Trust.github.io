@@ -54,6 +54,49 @@
     });
   }
 
+  function initHistoryTimeline() {
+    const timeline = document.getElementById('history-timeline');
+    const toggle = document.querySelector('.timeline-toggle');
+    if (!timeline || !toggle) return;
+
+    const secondaryItems = Array.from(timeline.querySelectorAll('.timeline-secondary'));
+    if (!secondaryItems.length) return;
+
+    timeline.classList.add('timeline-enhanced');
+    secondaryItems.forEach((item) => {
+      item.setAttribute('aria-hidden', 'true');
+      item.style.maxHeight = '0px';
+    });
+    toggle.hidden = false;
+
+    const setExpanded = (expanded) => {
+      timeline.classList.toggle('timeline-expanded', expanded);
+      toggle.setAttribute('aria-expanded', String(expanded));
+      toggle.textContent = expanded ? 'Show key milestones only' : 'Show full timeline';
+
+      secondaryItems.forEach((item) => {
+        item.setAttribute('aria-hidden', String(!expanded));
+        if (expanded) {
+          item.style.maxHeight = `${item.scrollHeight + 48}px`;
+        } else {
+          item.style.maxHeight = '0px';
+        }
+      });
+    };
+
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      setExpanded(!expanded);
+    });
+
+    window.addEventListener('resize', () => {
+      if (toggle.getAttribute('aria-expanded') !== 'true') return;
+      secondaryItems.forEach((item) => {
+        item.style.maxHeight = `${item.scrollHeight + 48}px`;
+      });
+    });
+  }
+
   function localDate(dateString) {
     const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dateString || '');
     if (!match) return new Date(dateString);
@@ -82,7 +125,24 @@
     meta.className = 'event-meta';
     meta.textContent = `${event.time || 'All day'} · ${event.location || 'Brampton Old Church'}`;
     const title = document.createElement('h3');
-    title.textContent = event.title || 'Event';
+    const titleText = String(event.title || 'Event');
+    if (event.url) {
+      try {
+        const resolvedUrl = new URL(String(event.url), window.location.href);
+        if (['http:', 'https:'].includes(resolvedUrl.protocol)) {
+          const titleLink = document.createElement('a');
+          titleLink.href = String(event.url);
+          titleLink.textContent = titleText;
+          title.append(titleLink);
+        } else {
+          title.textContent = titleText;
+        }
+      } catch {
+        title.textContent = titleText;
+      }
+    } else {
+      title.textContent = titleText;
+    }
     body.append(meta, title);
     if (event.description) {
       const description = document.createElement('p');
@@ -138,8 +198,11 @@
         observeRevealItems(list);
       }
     } catch (error) {
-      // Keep the crawlable server/static HTML already in the page as a resilient fallback.
-      console.error('Could not refresh events from events.json:', error);
+      const message = document.createElement('p');
+      message.className = 'events-empty';
+      message.innerHTML = 'Events could not be loaded. Please <a href="governance.html#contact">contact the Secretary</a> for the latest programme.';
+      list.replaceChildren(message);
+      console.error('Could not load events from events.json:', error);
     } finally {
       list.setAttribute('aria-busy', 'false');
     }
@@ -213,6 +276,7 @@
   document.addEventListener('DOMContentLoaded', () => {
     initReveal();
     initNavigation();
+    initHistoryTimeline();
     const year = document.getElementById('yr');
     if (year) year.textContent = String(new Date().getFullYear());
     loadEvents();

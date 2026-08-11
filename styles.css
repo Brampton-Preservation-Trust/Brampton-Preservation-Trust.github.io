@@ -580,6 +580,52 @@
     .timeline-item h4 { color: var(--stone); margin-bottom: 0.3rem; }
     .timeline-item p { font-size: 0.95rem; margin: 0; }
 
+    .timeline-controls {
+      margin-top: 0.25rem;
+      padding-left: 4rem;
+    }
+    .timeline-toggle {
+      border: 1px solid rgba(232,226,217,0.6);
+      background: transparent;
+      color: var(--stone);
+      padding: 0.7em 1.35em;
+      font: inherit;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+    .timeline-toggle:hover {
+      border-color: var(--gold-light);
+      background: rgba(255,255,255,0.06);
+      color: var(--gold-light);
+    }
+
+    /* Only collapse secondary milestones after JavaScript has enhanced the timeline.
+       Without JavaScript, the complete historical record remains visible. */
+    .history-timeline.timeline-enhanced .timeline-secondary {
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      padding-bottom: 0;
+      transform: translateY(-0.5rem);
+      pointer-events: none;
+      transition: max-height 0.45s ease, opacity 0.3s ease, padding-bottom 0.45s ease, transform 0.35s ease;
+    }
+    .history-timeline.timeline-enhanced.timeline-expanded .timeline-secondary {
+      opacity: 1;
+      padding-bottom: 2.5rem;
+      transform: none;
+      pointer-events: auto;
+    }
+
+    @media (max-width: 520px) {
+      .timeline-controls { padding-left: 2rem; }
+      .timeline-toggle { width: 100%; }
+    }
+
     /* ── SUPPORT / DONATE ────────────────────────────────────── */
     #support { background: var(--cream); }
 
