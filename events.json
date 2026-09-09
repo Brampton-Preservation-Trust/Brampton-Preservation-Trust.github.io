@@ -4,11 +4,19 @@
     "time": "7:00 pm",
     "location": "Brampton Old Church",
     "title": "Annual General Meeting",
-    "description": "The Brampton Preservation Trust will hold its Annual General Meeting at Brampton Old Church. All members and interested members of the public are encouraged to attend to discuss the past year's activities and plans for the future.",
+    "description": "The Brampton Preservation Trust held its Annual General Meeting at Brampton Old Church, followed by a short Council of Management meeting.",
     "links": [
       {
         "label": "Download the AGM agenda",
         "url": "minutes/15.07.26%20AGM%2C%20Agenda.pdf"
+      },
+      {
+        "label": "Download the AGM minutes",
+        "url": "minutes/15.7.26%20AGM%20Minutes.pdf"
+      },
+      {
+        "label": "Download the Council of Management minutes",
+        "url": "minutes/15.07.26%20Council%20of%20Management%20Meeting%20minutes.pdf"
       },
       {
         "label": "Download the Trustee Nomination form",
@@ -17,10 +25,30 @@
     ]
   },
   {
+    "date": "2026-09-09",
+    "time": "7:00 pm",
+    "location": "David Moorat's home",
+    "title": "Council of Management Meeting",
+    "description": "All Brampton Preservation Trust members are welcome to attend.",
+    "links": [
+      {
+        "label": "Download the meeting agenda",
+        "url": "minutes/9.9.26%20Council%20of%20Management%20Agenda.pdf"
+      }
+    ]
+  },
+  {
     "date": "2026-09-16",
-    "time": "6:00 pm",
+    "time": "6:00–8:00 pm",
     "location": "Brampton Old Church",
-    "title": "St Ninian's Day Open Evening",
-    "description": "Join us to celebrate St Ninian's Day at Brampton Old Church. Details TBC."
+    "title": "St Ninian's Day Celebration",
+    "description": "Join Brampton Preservation Trust for a St Ninian's Day celebration at Brampton Old Church."
+  },
+  {
+    "date": "2026-09-17",
+    "time": null,
+    "location": "Brampton Old Church",
+    "title": "St Ninian's Day Catholic Service",
+    "description": "A Catholic service will be held at Brampton Old Church for St Ninian's Day. The service time has not yet been confirmed."
   }
 ]

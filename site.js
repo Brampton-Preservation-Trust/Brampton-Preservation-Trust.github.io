@@ -123,7 +123,8 @@
     body.className = 'event-body';
     const meta = document.createElement('div');
     meta.className = 'event-meta';
-    meta.textContent = `${event.time || 'All day'} · ${event.location || 'Brampton Old Church'}`;
+    const timeText = event.time === null ? 'Time to be confirmed' : (event.time || 'All day');
+    meta.textContent = `${timeText} · ${event.location || 'Brampton Old Church'}`;
     const title = document.createElement('h3');
     const titleText = String(event.title || 'Event');
     if (event.url) {
