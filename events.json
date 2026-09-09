@@ -30,17 +30,18 @@
     ]
   },
   {
-    "date": "2026-09-16",
-    "time": "6:00–8:00 pm",
-    "location": "Brampton Old Church",
-    "title": "St Ninian's Day Celebration",
-    "description": "Join Brampton Preservation Trust for a St Ninian's Day celebration at Brampton Old Church."
-  },
-  {
     "date": "2026-09-17",
     "time": null,
     "location": "Brampton Old Church",
     "title": "St Ninian's Day Catholic Service",
     "description": "A Catholic service will be held at Brampton Old Church for St Ninian's Day. The service time has not yet been confirmed."
-  }
+  },
+  {
+    "date": "2026-10-31",
+    "time": "3:00pm - 7:00pm",
+    "location": "Brampton Old Church",
+    "title": "Halloween Extravaganza",
+    "description": "We will meet at the church for two fun Halloween-themed talks by local historians Maks Loth-Hill and David Moorat, and a spooky tour of some of the most haunted tombs and gruesome tales in the graveyard by local genealogist Brittany Warren "
+  },  
+  
 ]
