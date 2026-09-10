@@ -1072,3 +1072,12 @@ main > section:not(#hero) {
   margin: 0;
   color: var(--ink-soft);
 }
+
+/* Inline links within event descriptions */
+.event-body .event-inline-link {
+  color: var(--moss);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+.event-body .event-inline-link:hover { color: var(--gold); }

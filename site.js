@@ -145,7 +145,29 @@
       title.textContent = titleText;
     }
     body.append(meta, title);
-    if (event.description) {
+    if (Array.isArray(event.description_parts) && event.description_parts.length) {
+      const description = document.createElement('p');
+      event.description_parts.forEach((part) => {
+        if (!part || !part.text) return;
+        if (part.url) {
+          try {
+            const resolvedUrl = new URL(String(part.url), window.location.href);
+            if (['http:', 'https:'].includes(resolvedUrl.protocol)) {
+              const link = document.createElement('a');
+              link.href = String(part.url);
+              link.textContent = String(part.text);
+              link.className = 'event-inline-link';
+              description.append(link);
+              return;
+            }
+          } catch {
+            // Fall back to plain text below.
+          }
+        }
+        description.append(document.createTextNode(String(part.text)));
+      });
+      body.append(description);
+    } else if (event.description) {
       const description = document.createElement('p');
       description.textContent = event.description;
       body.append(description);
