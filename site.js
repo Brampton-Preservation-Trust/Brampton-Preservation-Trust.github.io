@@ -296,10 +296,36 @@
     }
   }
 
+
+  function initVideoPlayers() {
+    const stages = document.querySelectorAll('.video-stage[data-youtube-id]');
+    stages.forEach((stage) => {
+      const button = stage.querySelector('.video-play');
+      if (!button) return;
+
+      button.addEventListener('click', () => {
+        const videoId = String(stage.dataset.youtubeId || '').trim();
+        if (!/^[A-Za-z0-9_-]{11}$/.test(videoId)) return;
+
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
+        iframe.title = stage.dataset.videoTitle || 'Brampton Old Church video';
+        iframe.loading = 'lazy';
+        iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        iframe.allowFullscreen = true;
+
+        stage.classList.add('is-playing');
+        stage.replaceChildren(iframe);
+      }, { once: true });
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     initReveal();
     initNavigation();
     initHistoryTimeline();
+    initVideoPlayers();
     const year = document.getElementById('yr');
     if (year) year.textContent = String(new Date().getFullYear());
     loadEvents();
