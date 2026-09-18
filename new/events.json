@@ -1,0 +1,48 @@
+[
+  {
+    "date": "2026-09-17",
+    "time": null,
+    "location": "Brampton Old Church",
+    "title": "St Ninian's Day Catholic Service",
+    "description": "A Catholic service for St Ninian's Day will be held at Brampton Old Church. Time to be confirmed."
+  },
+    {
+    "date": "2026-10-14",
+    "time": "7:00 pm",
+    "location": "David Moorat's House, Brampton",
+    "title": "Council of Management Meeting",
+    "description": "All members of the trust are welcome to attend."
+  },
+  {
+    "date": "2026-10-31",
+    "time": "3:00 pm—5:00 pm",
+    "location": "Brampton Old Church",
+    "title": "Halloween Extravaganza",
+    "description_parts": [
+      {
+        "text": "Join us for a Halloween afternoon at Brampton Old Church, featuring two Halloween-themed talks from local historians "
+      },
+      {
+        "text": "Maks Loth-Hill",
+        "url": "https://www.durham.ac.uk/staff/maksymilian-g-loth-hill/"
+      },
+      {
+        "text": " and "
+      },
+      {
+        "text": "David Moorat",
+        "url": "https://www.bramptoncc.org.uk/1849-2/"
+      },
+      {
+        "text": ", plus a spooky graveyard tour with local genealogist "
+      },
+      {
+        "text": "Brittany Warren",
+        "url": "https://solvingyourmysteries.co.uk"
+      },
+      {
+        "text": " focusing on some of the more gruesome stories around the church."
+      }
+    ]
+  }
+]

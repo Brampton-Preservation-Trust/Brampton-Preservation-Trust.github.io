@@ -1,0 +1,47 @@
+[
+    {
+    "file": "images/church-spring.jpg",
+    "title": "2020_03_19 004 Brampton Old Church",
+    "title_url": "https://www.flickr.com/photos/alandlesley/49836776163",
+    "author": "Alan Sawyer",
+    "author_url": "https://www.flickr.com/photos/alandlesley/",
+    "license": "CC BY-NC-ND 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-nc-nd/2.0/deed.en",
+    "start_month": 3,
+    "end_month": 5
+    },
+    {
+    "file": "images/church-summer.jpg",
+    "title": "Brampton Old Church",
+    "title_url": "https://www.geograph.org.uk/photo/7865561",
+    "author": "Brian Deegan",
+    "author_url": "https://www.geograph.org.uk/profile/123467",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+    "start_month": 6,
+    "end_month": 8
+    },
+    {
+    "file": "images/church-autumn.jpg",
+    "title": "2021_01_23 002 Brampton Old Church Cemetery",
+    "title_url": "https://www.flickr.com/photos/alandlesley/50908831907",
+    "author": "Alan Sawyer",
+    "author_url": "https://www.flickr.com/photos/alandlesley/",
+    "license": "CC BY-NC-ND 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-nc-nd/2.0/deed.en",
+    "start_month": 9,
+    "end_month": 11
+    },
+    {
+    "file": "images/church-winter.jpg",
+    "title": "Brampton Old Church",
+    "title_url": "https://www.facebook.com/photo/?fbid=2591035447739699",
+    "author": "Ken Rennie",
+    "author_url": "https://www.instagram.com/rennieken/",
+    "license": null,
+    "license_url": null,
+    "start_month": 12,
+    "end_month": 2
+    }
+
+  ]
