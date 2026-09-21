@@ -15,7 +15,7 @@
 
   <meta name="robots" content="index, follow, max-image-preview:large" />
 
-  <meta name="theme-color" content="#f7f3ed" />
+  <meta name="theme-color" content="#f1eadc" />
   <meta name="author" content="Brampton Preservation Trust" />
   <meta name="language" content="en-GB" />
   <link rel="alternate" type="application/pdf" href="https://bramptonpreservationtrust.co.uk/resources/graveyard_booklet.pdf" title="Brampton Old Church Self-Guided Graveyard Tour" />
@@ -53,7 +53,7 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet" />
 
   <script>
     // Select the seasonal hero before the stylesheet is parsed so only the intended hero image is requested.
@@ -231,7 +231,11 @@
   <nav aria-label="Primary navigation">
     <div class="inner">
       <a class="nav-brand" href="index.html" aria-label="Brampton Preservation Trust home">
-        <span class="nav-brand-name"><span class="nav-brand-primary">Brampton</span><span class="nav-brand-secondary">Preservation Trust</span></span>
+        <span class="nav-brand-mark" aria-hidden="true"><span>B</span></span>
+        <span class="nav-brand-copy">
+          <span class="nav-brand-name"><span class="nav-brand-primary">Brampton</span><span class="nav-brand-secondary">Preservation Trust</span></span>
+          <span class="nav-brand-meta" aria-hidden="true">Est. 1981 &middot; Cumbria</span>
+        </span>
       </a>
       <button
         class="nav-toggle"
@@ -259,11 +263,16 @@
   <!-- ── HERO ────────────────────────────────────────────────── -->
   <section id="hero">
     <div class="hero-content">
-
+      <div class="hero-register" aria-hidden="true">
+        <span>Brampton &middot; Cumbria</span>
+        <span>Registered Charity 511885</span>
+      </div>
       <h1 class="hero-title">Brampton Preservation Trust</h1>
       <p class="hero-sub">To preserve for the benefit of the townspeople of Brampton and District the historical, architectural and constructional heritage in the area in the form of buildings of particular beauty or historical, architectural or constructional merit.</p>
-      <a href="visit.html" class="hero-cta">Plan Your Visit</a>
-      <a href="#support" class="hero-cta outline">Support the Trust</a>
+      <div class="hero-actions">
+        <a href="visit.html" class="hero-cta">Plan Your Visit</a>
+        <a href="#support" class="hero-cta outline">Support the Trust</a>
+      </div>
     </div>
 
     <div class="hero-photo-credit" aria-live="polite"></div>
@@ -328,23 +337,26 @@
 
       <div class="explore-grid">
         <article class="explore-card reveal">
-          <span class="explore-number" aria-hidden="true">01</span>
-          <span class="resource-kicker">History</span>
-          <h3>Follow a thousand years of change</h3>
+          <div class="explore-card-heading">
+            <span class="resource-kicker">History</span>
+            <h3>Follow a thousand years of change</h3>
+          </div>
           <p>Explore the Roman fort, the medieval Church of St Martin, the surviving chancel and the story of the building's preservation.</p>
           <a class="card-link" href="history.html">Read the church history <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
         </article>
         <article class="explore-card reveal">
-          <span class="explore-number" aria-hidden="true">02</span>
-          <span class="resource-kicker">Research &amp; Media</span>
-          <h3>Watch, read and investigate</h3>
+          <div class="explore-card-heading">
+            <span class="resource-kicker">Research &amp; Media</span>
+            <h3>Watch, read and investigate</h3>
+          </div>
           <p>View films made at the church and find journal articles, the Historic England record, memorial inscriptions and further reading.</p>
           <a class="card-link" href="research.html">Explore research and films <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
         </article>
         <article class="explore-card reveal">
-          <span class="explore-number" aria-hidden="true">03</span>
-          <span class="resource-kicker">Visit</span>
-          <h3>See the place for yourself</h3>
+          <div class="explore-card-heading">
+            <span class="resource-kicker">Visit</span>
+            <h3>See the place for yourself</h3>
+          </div>
           <p>Plan a visit to the church and historic burial ground, then use the free self-guided booklet to follow fifteen stories around the site.</p>
           <a class="card-link" href="visit.html">Plan your visit <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
         </article>
