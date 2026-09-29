@@ -70,7 +70,7 @@
     })();
   </script>
 
-  <link href="styles.css?v=20260929-2" rel="stylesheet" />
+  <link href="styles.css?v=20260929-3" rel="stylesheet" />
 
 <script type="application/ld+json">
 {
@@ -771,7 +771,92 @@
     </div>
   </footer>
 
-  <script defer src="site.js"></script>
+  <script defer src="site.js?v=20260929-2"></script>
+
+  <!-- Keep section anchors aligned with their visible content rather than the
+       outer edge of each generously padded section. This preserves the public
+       #about / #events / #support URLs while accounting for the sticky nav. -->
+  <script>
+    (() => {
+      const normalisePath = (path) => {
+        const withoutIndex = path.replace(/\/index\.html$/i, '/');
+        return withoutIndex.endsWith('/') ? withoutIndex : `${withoutIndex}/`;
+      };
+
+      const getSectionTarget = (hash) => {
+        if (!hash || hash === '#hero') return null;
+
+        let section;
+        try {
+          section = document.querySelector(hash);
+        } catch {
+          return null;
+        }
+
+        if (!section || section.tagName !== 'SECTION') return null;
+
+        return {
+          section,
+          content: section.querySelector(':scope > .wrap, :scope > .wide-wrap') || section
+        };
+      };
+
+      const scrollToSectionContent = (hash, behavior = 'smooth') => {
+        const target = getSectionTarget(hash);
+        if (!target) return false;
+
+        const nav = document.querySelector('nav');
+        const navHeight = nav ? nav.getBoundingClientRect().height : 0;
+        const gap = 24;
+        const top = window.scrollY + target.content.getBoundingClientRect().top - navHeight - gap;
+
+        window.scrollTo({
+          top: Math.max(0, top),
+          behavior
+        });
+
+        return true;
+      };
+
+      document.addEventListener('click', (event) => {
+        if (
+          event.defaultPrevented ||
+          event.button !== 0 ||
+          event.metaKey ||
+          event.ctrlKey ||
+          event.shiftKey ||
+          event.altKey
+        ) return;
+
+        const link = event.target.closest('a[href]');
+        if (!link || link.target === '_blank' || link.hasAttribute('download')) return;
+
+        const url = new URL(link.href, window.location.href);
+        if (!url.hash || normalisePath(url.pathname) !== normalisePath(window.location.pathname)) return;
+        if (!getSectionTarget(url.hash)) return;
+
+        event.preventDefault();
+        history.pushState(null, '', url.hash);
+        scrollToSectionContent(url.hash);
+      });
+
+      const correctInitialHash = () => {
+        if (!getSectionTarget(window.location.hash)) return;
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => scrollToSectionContent(window.location.hash, 'auto'));
+        });
+      };
+
+      window.addEventListener('hashchange', correctInitialHash);
+      window.addEventListener('load', correctInitialHash);
+      window.addEventListener('bpt:events-loaded', correctInitialHash);
+
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(correctInitialHash);
+      }
+    })();
+  </script>
 
 <script>
     window.goatcounter = {

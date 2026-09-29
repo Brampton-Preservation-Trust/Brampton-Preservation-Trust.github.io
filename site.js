@@ -228,6 +228,7 @@
       console.error('Could not load events from events.json:', error);
     } finally {
       list.setAttribute('aria-busy', 'false');
+      window.dispatchEvent(new Event('bpt:events-loaded'));
     }
   }
 

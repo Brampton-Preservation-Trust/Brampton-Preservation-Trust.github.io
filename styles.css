@@ -2777,9 +2777,13 @@ footer::before {
   transform: none;
 }
 
-main > section:not(#hero) {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 850px;
+/* Keep homepage section geometry stable for in-page anchor navigation.
+   content-visibility:auto used estimated off-screen heights, which caused
+   #about / #events / #support targets to shift after the browser laid out
+   the intervening sections for real. */
+.home-page main > section:not(#hero) {
+  content-visibility: visible;
+  contain-intrinsic-size: none;
 }
 
 /* ========================================================================== 
