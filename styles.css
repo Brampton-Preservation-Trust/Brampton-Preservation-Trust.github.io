@@ -590,7 +590,7 @@ body > nav .inner {
 .hero-title {
   max-width: 640px;
   color: var(--chalk);
-  font-size: clamp(3.4rem, 6.6vw, 7.2rem);
+  font-size: clamp(3rem, 5.4vw, 5.4rem);
   font-weight: 500;
   letter-spacing: -0.062em;
   line-height: 0.82;
@@ -1988,7 +1988,7 @@ footer::before {
 .article-hero h1 {
   max-width: 900px;
   color: var(--ink);
-  font-size: clamp(3.1rem, 7vw, 7rem);
+  font-size: clamp(2.5rem, 4.25vw, 4.25rem);
   font-weight: 500;
   letter-spacing: -0.06em;
   line-height: 0.88;
@@ -3121,7 +3121,7 @@ footer::before {
   }
 
   .hero-title {
-    font-size: clamp(3.25rem, 15vw, 5rem);
+    font-size: clamp(2.75rem, 11vw, 4rem);
   }
 
   .hero-sub {
@@ -3248,7 +3248,7 @@ footer::before {
   }
 
   .article-hero h1 {
-    font-size: clamp(3.15rem, 14vw, 5rem);
+    font-size: clamp(2.35rem, 9vw, 3.25rem);
   }
 
   .article-main {
@@ -3601,5 +3601,339 @@ footer::before {
   .home-page #hero .hero-photo-credit {
     max-width: calc(100% - 24px);
     margin: -2.2rem 12px 0.8rem;
+  }
+}
+
+/* ==========================================================================
+   Roll of Honour page
+   ========================================================================== */
+
+.honour-intro-note {
+  max-width: 900px;
+  margin: -0.75rem 0 clamp(2.25rem, 4vw, 3.25rem);
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+.roll-honour-page .research-section-heading {
+  max-width: 760px;
+  margin-bottom: 1.8rem;
+}
+
+.roll-honour-page .research-section-heading h2 {
+  font-size: clamp(2rem, 3.4vw, 3.25rem);
+  line-height: 0.98;
+}
+
+.honour-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.1rem;
+}
+
+.honour-card {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--chalk);
+  border: 1px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--paper-deep);
+  scroll-margin-top: calc(var(--nav-height) + 30px);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.honour-card:target {
+  opacity: 1;
+  transform: none;
+  border-color: var(--clay-dark);
+  box-shadow: 7px 7px 0 var(--ochre);
+}
+
+.honour-photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center 25%;
+  background: var(--paper-deep);
+  border-bottom: 1px solid var(--ink);
+}
+
+.honour-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 1.25rem;
+}
+
+.honour-card h3 {
+  margin: 0 0 0.55rem;
+  font-size: clamp(1.4rem, 2vw, 1.75rem);
+  line-height: 1;
+}
+
+.honour-service {
+  margin: 0 0 0.8rem;
+  color: var(--ink) !important;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.42;
+}
+
+.honour-bio {
+  margin-bottom: 1.1rem;
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.honour-bio a {
+  font-weight: 600;
+}
+
+.honour-grave {
+  margin-top: auto;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--line);
+  color: var(--ink-soft) !important;
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+}
+
+.honour-grave strong {
+  color: var(--ink);
+}
+
+@media (max-width: 1050px) {
+  .honour-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .honour-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .honour-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .honour-card-body {
+    padding: 1.15rem;
+  }
+}
+
+/* Roll of Honour: real-profile cards and biography dialogs */
+.honour-status {
+  display: inline-flex;
+  width: fit-content;
+  margin: 0 0 0.7rem;
+  padding: 0.28rem 0.48rem;
+  background: var(--paper-deep);
+  border: 1px solid var(--line);
+  color: var(--clay-dark);
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.honour-more {
+  margin: auto 0 0.9rem;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.honour-place {
+  margin: 0;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--line);
+  color: var(--ink-soft) !important;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.025em;
+  line-height: 1.45;
+}
+
+.honour-place strong {
+  display: block;
+  margin-bottom: 0.18rem;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.honour-dialog {
+  width: min(780px, calc(100% - 32px));
+  max-width: 780px;
+  max-height: min(88vh, 920px);
+  margin: auto;
+  padding: 0;
+  overflow: hidden;
+  background: var(--chalk);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  box-shadow: 14px 14px 0 rgba(20, 29, 24, 0.28);
+}
+
+.honour-dialog::backdrop {
+  background: rgba(20, 29, 24, 0.72);
+  backdrop-filter: blur(3px);
+}
+
+.honour-dialog-panel {
+  max-height: min(88vh, 920px);
+  padding: clamp(1.4rem, 4vw, 2.8rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.honour-dialog-close {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 0 0 0.6rem auto;
+  padding: 0;
+  background: var(--ink);
+  color: var(--chalk);
+  border: 1px solid var(--ink);
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 1.45rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.honour-dialog-close:hover {
+  background: var(--clay-dark);
+  border-color: var(--clay-dark);
+}
+
+.honour-dialog .resource-kicker {
+  display: block;
+  margin-bottom: 0.55rem;
+}
+
+.honour-dialog .honour-status {
+  margin-bottom: 0.8rem;
+}
+
+.honour-dialog h2 {
+  max-width: 650px;
+  margin: 0 0 0.75rem;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  line-height: 0.98;
+}
+
+.honour-dialog-service {
+  max-width: 650px;
+  margin: 0 0 0.9rem;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.honour-dialog-place {
+  max-width: 650px;
+  margin: 0 0 1.7rem;
+  color: var(--ink-soft);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+.honour-dialog-place strong {
+  color: var(--ink);
+}
+
+.honour-dialog-copy {
+  max-width: 680px;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--ink);
+}
+
+.honour-dialog-copy p {
+  margin: 0 0 1.15rem;
+  color: var(--ink-soft);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.honour-dialog-sources {
+  margin-top: 2rem;
+  padding: 1.35rem 1.5rem 1.4rem;
+  background: var(--paper-deep);
+  border-top: 4px solid var(--clay);
+}
+
+.honour-dialog-sources h3 {
+  margin: 0 0 0.75rem;
+  font-family: var(--sans);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.honour-dialog-sources ul {
+  margin: 0;
+  padding-left: 1.15rem;
+}
+
+.honour-dialog-sources li {
+  margin: 0.34rem 0;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+body.honour-dialog-open {
+  overflow: hidden;
+}
+
+@media (max-width: 520px) {
+  .honour-dialog {
+    width: calc(100% - 18px);
+    max-height: 94vh;
+  }
+
+  .honour-dialog-panel {
+    max-height: 94vh;
+    padding: 1.15rem;
+  }
+
+  .honour-dialog h2 {
+    font-size: clamp(1.85rem, 10vw, 2.5rem);
+  }
+
+  .honour-dialog-copy p {
+    font-size: 0.96rem;
+  }
+
+  .honour-dialog-sources {
+    margin-inline: -0.2rem;
+    padding: 1.15rem;
   }
 }
