@@ -3652,15 +3652,18 @@ footer::before {
   box-shadow: 7px 7px 0 var(--ochre);
 }
 
+
 .honour-photo {
   display: block;
   width: 100%;
+  height: auto;
   aspect-ratio: 4 / 3;
-  object-fit: cover;
-  object-position: center 25%;
-  background: var(--paper-deep);
+  object-fit: contain;
+  object-position: center;
+  background-color: var(--paper-deep);
   border-bottom: 1px solid var(--ink);
 }
+
 
 .honour-card-body {
   display: flex;
@@ -3935,5 +3938,160 @@ body.honour-dialog-open {
   .honour-dialog-sources {
     margin-inline: -0.2rem;
     padding: 1.15rem;
+  }
+}
+
+/* Roll of Honour: memorial-location labels and filtering */
+.honour-filter {
+  margin: 0 0 clamp(1.8rem, 3vw, 2.5rem);
+  padding: clamp(1rem, 2.5vw, 1.4rem);
+  background: var(--paper-soft);
+  border: 1px solid var(--ink);
+}
+
+.honour-filter legend {
+  padding: 0 0.45rem;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.honour-filter-help {
+  max-width: 980px;
+  margin: 0 0 0.9rem;
+  color: var(--ink-soft);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.honour-filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.honour-filter-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  min-height: 2.45rem;
+  padding: 0.5rem 0.72rem;
+  background: var(--chalk);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.honour-filter-button:hover {
+  background: var(--paper-deep);
+}
+
+.honour-filter-button.is-active {
+  background: var(--ink);
+  color: var(--chalk);
+}
+
+.honour-filter-button:focus-visible {
+  outline: 3px solid var(--clay);
+  outline-offset: 3px;
+}
+
+.honour-filter-count {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+}
+
+.honour-filter-status {
+  min-height: 1.35em;
+  margin: 0.8rem 0 0;
+  color: var(--ink-soft);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  line-height: 1.4;
+}
+
+.honour-card[hidden],
+.honour-section[hidden],
+.honour-filter-button[hidden] {
+  display: none !important;
+}
+
+.honour-location-badge {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+  width: 100%;
+  margin: 0 0 0.85rem;
+  padding: 0.42rem 0.52rem;
+  background: var(--paper-deep);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--stone);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  line-height: 1.25;
+}
+
+.honour-location-old {
+  border-left-color: var(--clay-dark);
+}
+
+.honour-location-st-martins {
+  border-left-color: var(--moss-deep);
+}
+
+.honour-location-new-cemetery {
+  border-left-color: var(--ochre);
+}
+
+.honour-location-st-martins-yard {
+  border-left-color: var(--lichen);
+}
+
+.honour-location-label {
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+.honour-location-code {
+  flex: 0 0 auto;
+  font-weight: 600;
+  letter-spacing: 0.035em;
+}
+
+.honour-dialog .honour-location-badge {
+  max-width: 650px;
+  margin: 0 0 0.8rem;
+}
+
+@media (max-width: 520px) {
+  .honour-filter {
+    padding: 0.9rem;
+  }
+
+  .honour-filter-buttons {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .honour-filter-button {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .honour-location-badge {
+    align-items: flex-start;
   }
 }
